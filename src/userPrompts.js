@@ -1,5 +1,6 @@
 import inquirer from "inquirer"
 import { getRandomPokemon, allCurrentPokemons, originalPokemons } from './randomPokemon.js'
+import formatResults from "./utilities/formatResults.js"
 
 const initialPrompt = async () => {
     const answers = await inquirer.prompt({
@@ -40,11 +41,11 @@ const whichRandomPokemon = async () => {
 
         case 'All current pokemon.':
             fetchedPokemon = await getRandomPokemon(allCurrentPokemons)
-            console.log(`${fetchedPokemon.name}`)
+            formatResults(fetchedPokemon)
             break
         case 'Original 151 pokemon.':
             fetchedPokemon = await getRandomPokemon(originalPokemons)
-            console.log(`${fetchedPokemon.name}`)
+            formatResults(fetchedPokemon)
             break
         case 'Quit':
             process.exitCode = 0;
