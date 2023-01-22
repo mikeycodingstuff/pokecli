@@ -1,5 +1,5 @@
 import inquirer from "inquirer"
-import { getRandomPokemon, allCurrentPokemons, originalPokemons } from './utilities/fetches/randomPokemon.js'
+import { getRandomPokemon, allCurrentPokemons, originalPokemons } from './utilities/fetches/getRandomPokemon.js'
 import formatResults from "./utilities/formatResults.js"
 
 const initialPrompt = async () => {
