@@ -1,8 +1,8 @@
 import errorMessage from "../utilities/errorMessage.js"
 
 const getPokemonByIdOrName = async (userInput) => {
-
-    if (typeof(userInput === 'string')) {
+    if (typeof(userInput) === 'string') {
+        console.log(typeof(userInput))
         userInput = userInput.toLowerCase()
     }
 
