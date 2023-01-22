@@ -1,5 +1,9 @@
+import chalk from "chalk"
+
 const formatResults = (pokemon) => {
     console.log(`
+        ${chalk.bgHex('#7b62ac')('RESULTS:')}
+
         Pokemon: ${capitalise(pokemon.name)}
         Id: ${pokemon.id}
         Type(s): ${displayTypes(pokemon.types)}
