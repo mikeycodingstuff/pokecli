@@ -3,5 +3,5 @@
 import welcome from './src/welcome.js'
 import { initialPrompt } from './src/userPrompts.js'
 
-welcome()
+await welcome()
 await initialPrompt()

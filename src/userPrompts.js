@@ -16,7 +16,6 @@ const initialPrompt = async () => {
             whichRandomPokemon()
             break
         case 'Quit':
-            console.log('Quitting')
             process.exitCode = 0;
             break
     }
@@ -42,7 +41,6 @@ const whichRandomPokemon = async () => {
             console.log('random from original pokemon')
             break
         case 'Quit':
-            console.log('Quitting')
             process.exitCode = 0;
             break
     }
