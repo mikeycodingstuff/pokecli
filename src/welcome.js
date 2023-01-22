@@ -1,6 +1,6 @@
-import chalk from 'chalk';
+import chalk from 'chalk'
 
-const mainColor = '#7b62ac';
+const mainColor = '#7b62ac'
 
 const welcome = () => {
     console.log(`
@@ -8,7 +8,7 @@ const welcome = () => {
         by ${chalk.hex(mainColor)('Mikey')}
 
         An app for finding pokemon via the command line.
-    `);
-};
+    `)
+}
 
-export default welcome;
+export default welcome
