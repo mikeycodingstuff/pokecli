@@ -1,5 +1,5 @@
 import randomIntInclusive from "../utilities/randomIntInclusive.js"
-import { getPokemonById } from "./getPokemon.js"
+import { getPokemonByIdOrName } from "./getPokemon.js"
 
 const getNumberOfTotalCurrentPokemon = async () => {
     const data = await fetch(`https://pokeapi.co/api/v2/pokedex/1`)
@@ -10,7 +10,7 @@ const getNumberOfTotalCurrentPokemon = async () => {
 
 const getRandomPokemon = async (pokemonRange) => {
     const id = randomIntInclusive(pokemonRange)
-    return getPokemonById(id)
+    return getPokemonByIdOrName(id)
 }
 
 const originalPokemons = { min: 1, max: 151 }

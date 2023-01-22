@@ -1,7 +1,9 @@
 import inquirer from "inquirer"
-import { getPokemonById } from "./fetches/getPokemon.js"
+import { getPokemonByIdOrName } from "./fetches/getPokemon.js"
 import { getRandomPokemon, allCurrentPokemons, originalPokemons } from './fetches/getRandomPokemon.js'
 import formatResults from "./utilities/formatResults.js"
+
+let fetchedPokemon
 
 const initialPrompt = async () => {
     const answers = await inquirer.prompt({
@@ -20,7 +22,7 @@ const initialPrompt = async () => {
             rangePrompt()
             break
         case 'Get a specific pokemon.':
-            searchMethodPrompt()
+            idOrNamePrompt()
             break
         case 'Quit':
             process.exitCode = 0;
@@ -39,8 +41,6 @@ const rangePrompt = async () => {
             'Quit',
         ]
     })
-
-    let fetchedPokemon
 
     switch (answers.range_prompt) {
 
@@ -62,42 +62,18 @@ const rangePrompt = async () => {
     }
 }
 
-const searchMethodPrompt = async () => {
-    const answers = await inquirer.prompt({
-        name: 'search_method_prompt',
-        type: 'list',
-        message: 'How would you like to search?\n',
-        choices: [
-            'Pokemon ID.',
-            'Pokemon name.',
-            'Quit',
-        ]
-    })
 
-    switch (answers.search_method_prompt) {
-        case 'Pokemon ID.':
-            idPrompt()
-            break
-        case 'Pokemon name.':
-            console.log('search by name')
-            break
-        case 'Quit':
-            process.exitCode = 0;
-            break
-    }
-}
-
-const idPrompt = async () => {
+const idOrNamePrompt = async () => {
     const answers = await inquirer.prompt({
-        name: 'id_prompt',
+        name: 'id_or_name_prompt',
         type: 'input',
-        message: 'Please enter a pokemon ID: ',
+        message: 'Please enter a valid pokemon ID or name: ',
         default() {
             return 41
         },
     })
-
-    let fetchedPokemon = await getPokemonById(answers.id_prompt)
+    
+    fetchedPokemon = await getPokemonByIdOrName(answers.id_or_name_prompt)
 
     if (fetchedPokemon) {
         return formatResults(fetchedPokemon)
