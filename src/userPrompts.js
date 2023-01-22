@@ -34,17 +34,17 @@ const whichRandomPokemon = async () => {
         ]
     })
 
-    let result
+    let fetchedPokemon
 
     switch (answers.which_random_pokemon) {
 
         case 'All current pokemon.':
-            result = await getRandomPokemon(allCurrentPokemons)
-            console.log(`${result.name}`)
+            fetchedPokemon = await getRandomPokemon(allCurrentPokemons)
+            console.log(`${fetchedPokemon.name}`)
             break
         case 'Original 151 pokemon.':
-            result = await getRandomPokemon(originalPokemons)
-            console.log(`${result.name}`)
+            fetchedPokemon = await getRandomPokemon(originalPokemons)
+            console.log(`${fetchedPokemon.name}`)
             break
         case 'Quit':
             process.exitCode = 0;
