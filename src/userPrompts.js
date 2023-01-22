@@ -1,6 +1,6 @@
 import inquirer from "inquirer"
-import { getPokemonById } from "./utilities/fetches/getPokemon.js"
-import { getRandomPokemon, allCurrentPokemons, originalPokemons } from './utilities/fetches/getRandomPokemon.js'
+import { getPokemonById } from "./fetches/getPokemon.js"
+import { getRandomPokemon, allCurrentPokemons, originalPokemons } from './fetches/getRandomPokemon.js'
 import formatResults from "./utilities/formatResults.js"
 
 const initialPrompt = async () => {
@@ -46,11 +46,15 @@ const rangePrompt = async () => {
 
         case 'All current pokemon.':
             fetchedPokemon = await getRandomPokemon(allCurrentPokemons)
-            formatResults(fetchedPokemon)
+            if (fetchedPokemon) {
+                formatResults(fetchedPokemon)
+            }
             break
         case 'Original 151 pokemon.':
             fetchedPokemon = await getRandomPokemon(originalPokemons)
-            formatResults(fetchedPokemon)
+            if (fetchedPokemon) {
+                formatResults(fetchedPokemon)
+            }
             break
         case 'Quit':
             process.exitCode = 0;
@@ -95,7 +99,11 @@ const idPrompt = async () => {
 
     let fetchedPokemon = await getPokemonById(answers.id_prompt)
 
-    return formatResults(fetchedPokemon)
+    if (fetchedPokemon) {
+        return formatResults(fetchedPokemon)
+    }
+
+    return
 }
 
 export { initialPrompt, rangePrompt }

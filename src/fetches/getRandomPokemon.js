@@ -1,4 +1,4 @@
-import randomIntInclusive from "../randomIntInclusive.js"
+import randomIntInclusive from "../utilities/randomIntInclusive.js"
 import { getPokemonById } from "./getPokemon.js"
 
 const getNumberOfTotalCurrentPokemon = async () => {
