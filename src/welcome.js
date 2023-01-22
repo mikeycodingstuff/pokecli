@@ -17,7 +17,7 @@ const welcome = async () => {
 
     `)
 
-    await sleep(2000)
+    await sleep(1500)
 }
 
 export default welcome
