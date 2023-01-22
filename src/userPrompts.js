@@ -1,4 +1,5 @@
 import inquirer from "inquirer"
+import { getPokemonById } from "./utilities/fetches/getPokemon.js"
 import { getRandomPokemon, allCurrentPokemons, originalPokemons } from './utilities/fetches/getRandomPokemon.js'
 import formatResults from "./utilities/formatResults.js"
 
@@ -71,7 +72,7 @@ const searchMethodPrompt = async () => {
 
     switch (answers.search_method_prompt) {
         case 'Pokemon ID.':
-            console.log('search by id')
+            idPrompt()
             break
         case 'Pokemon name.':
             console.log('search by name')
@@ -80,6 +81,21 @@ const searchMethodPrompt = async () => {
             process.exitCode = 0;
             break
     }
+}
+
+const idPrompt = async () => {
+    const answers = await inquirer.prompt({
+        name: 'id_prompt',
+        type: 'input',
+        message: 'Please enter a pokemon ID: ',
+        default() {
+            return 41
+        },
+    })
+
+    let fetchedPokemon = await getPokemonById(answers.id_prompt)
+
+    return formatResults(fetchedPokemon)
 }
 
 export { initialPrompt, rangePrompt }
