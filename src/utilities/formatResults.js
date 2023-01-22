@@ -7,7 +7,6 @@ const formatResults = (pokemon) => {
 }
 
 const displayTypes = (typesArray) => {
-    console.log(typesArray)
     return typesArray.map(({type}) => `${type.name.toUpperCase()}`).join(', ')
 }
 
