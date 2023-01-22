@@ -4,11 +4,17 @@ import sleep from './utilities/sleep.js'
 const mainColor = '#7b62ac'
 
 const welcome = async () => {
+    console.clear()
+
     console.log(`
-        ${chalk.bgHex(mainColor)('POKEMON API CLI')}
+
+
+        ${chalk.bgHex(mainColor)('POKEMON CLI')}
         by ${chalk.hex(mainColor)('Mikey')}
 
-        An app for finding pokemon via the command line.
+        A command line tool that shows pokemon info by consuming the pokemon API (found at https://pokeapi.co/)
+
+
     `)
 
     await sleep(2000)
