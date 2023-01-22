@@ -1,4 +1,4 @@
-import randomIntInclusive from "./utilities/randomIntInclusive.js"
+import randomIntInclusive from "../randomIntInclusive.js"
 
 const getNumberOfTotalCurrentPokemon = async () => {
     const data = await fetch(`https://pokeapi.co/api/v2/pokedex/1`)
