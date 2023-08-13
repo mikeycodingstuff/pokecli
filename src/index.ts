@@ -9,15 +9,6 @@ const program = new Command();
 const description = `A command line tool that shows pokemon info by consuming the pokemon API (found at ${api.API_BASE_URL})`
 const options = program.opts();
 
-program
-	.name('pokemon')
-	.version('1.0.0', '-v, -V, --vers, --version', 'output the current version')
-	.description(description)
-	.option('-a, --all', 'List all pokemon')
-	.addHelpText('before', header);
-
-program.parse(process.argv);
-
 const displayPokemon = async () => {
 	const displayNames = await formatAllPokemonData();
 
@@ -52,6 +43,15 @@ const formatAllPokemonData = async () => {
 		return [];
 	}
 }
+
+program
+	.name('pokemon')
+	.version('1.0.0', '-v, -V, --vers, --version', 'output the current version')
+	.description(description)
+	.option('-a, --all', 'List all pokemon')
+	.addHelpText('before', header);
+
+program.parse(process.argv);
 
 if (options.all) {
 	displayPokemon();
