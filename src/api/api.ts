@@ -1,6 +1,6 @@
 import { ApiError, NetworkError, JsonParseError } from './errors.js';
 
-const API_BASE_URL = 'https://pokeapi.co/api/v2s/';
+const API_BASE_URL = 'https://pokeapi.co/api/v2/';
 
 const getAllPokemon = async () => {
 	try {
