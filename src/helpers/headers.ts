@@ -1,10 +1,9 @@
 import chalk from 'chalk';
-
-const mainColor = '#7b62ac';
+import { mainColor, cliNameHeader, authorFormatted } from '../../config.js';
 
 const mainHeader = `
-  ${chalk.bgHex(mainColor)('pokemon cli'.toUpperCase())}
-  by ${chalk.hex(mainColor)('Mikey')}
+  ${chalk.bgHex(mainColor)(cliNameHeader)}
+  by ${chalk.hex(mainColor)(authorFormatted)}
 `;
 
 const header = (text: string) => console.log(`
