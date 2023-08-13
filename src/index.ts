@@ -18,14 +18,22 @@ program
 
 program.parse(process.argv);
 
+const displayPokemon = async () => {
+	try {
+		const pokemonData = await api.getAllPokemon();
+
+		console.log('All Pokemon:');
+
+		for (const pokemon of pokemonData.results) {
+			console.log(pokemon.name);
+		}
+	} catch (error: any) {
+		console.error('Error fetching Pokemon: ', error.message);
+	}
+}
+
 if (options.all) {
-	api.getAllPokemon()
-		.then(data => {
-			console.log('All Pokemon: ', data);
-		})
-		.catch(error => {
-			console.error('Error fetching Pokemon: ', error.message);
-		});
+	displayPokemon();
 }
 
 if (!process.argv.slice(2).length) {

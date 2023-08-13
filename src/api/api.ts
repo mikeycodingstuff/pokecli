@@ -4,7 +4,7 @@ const API_BASE_URL = 'https://pokeapi.co/api/v2/';
 
 const getAllPokemon = async () => {
 	try {
-		const response = await fetch(`${API_BASE_URL}/pokemon`);
+		const response = await fetch(`${API_BASE_URL}/pokemon?limit=100000&offset=0`);
 
 		if (!response.ok) {
 			throw new NetworkError(`Request failed - ${response.status} ${response.statusText}`);
