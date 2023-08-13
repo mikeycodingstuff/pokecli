@@ -21,4 +21,4 @@ const getAllPokemon = async () => {
 	}
 }
 
-export { getAllPokemon };
+export { getAllPokemon, API_BASE_URL };
