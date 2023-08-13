@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import header from './helpers/header.js';
+import { mainHeader, header } from './helpers/headers.js';
 import * as api from './api/api.js';
 
 const program = new Command();
@@ -19,7 +19,7 @@ const displayPokemon = async () => {
 
 	const columnWidth = Math.floor(terminalWidth / columns);
 
-	console.log('All Pokemon:');
+	header('All Pokemon:');
 
 	for (let i = 0; i < displayNames.length; i += columns) {
 		const row = displayNames.slice(i, i + columns);
@@ -49,7 +49,7 @@ program
 	.version('1.0.0', '-v, -V, --vers, --version', 'output the current version')
 	.description(description)
 	.option('-a, --all', 'List all pokemon')
-	.addHelpText('before', header);
+	.addHelpText('before', mainHeader);
 
 program.parse(process.argv);
 
