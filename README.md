@@ -1,6 +1,6 @@
 # pokemon-cli
 
-(WIP)
+(WIP)  
 A command line tool built using Node.js and TypeScript that shows pokemon info by consuming the pokemon API (found at https://pokeapi.co/v2)
 
 ## Setup
