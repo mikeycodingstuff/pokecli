@@ -2,11 +2,12 @@
 
 import { Command } from 'commander';
 import { mainHeader, header } from './helpers/headers.js';
+import { ApiError } from './api/errors.js';
 import * as api from './api/api.js';
 
 const program = new Command();
 
-const description = `A command line tool that shows pokemon info by consuming the pokemon API (found at ${api.API_BASE_URL})`
+const description = `A command line tool that shows pokemon info by consuming the pokemon API (found at ${api.API_BASE_URL})`;
 const options = program.opts();
 
 const displayPokemon = async () => {
@@ -26,7 +27,7 @@ const displayPokemon = async () => {
 		const formattedRow = row.map(name => name.padEnd(columnWidth)).join('');
 		console.log(formattedRow);
 	}
-}
+};
 
 const formatAllPokemonData = async () => {
 	try {
@@ -38,11 +39,15 @@ const formatAllPokemonData = async () => {
 		}
 
 		return displayNames;
-	} catch (error: any) {
-		console.error('Error fetching Pokemon: ', error.message);
+	} catch (error) {
+		if (error instanceof ApiError) {
+			console.error('Error fetching Pokemon: ', error.message);
+		} else {
+			console.error('Unknown error occurred while fetching Pokemon');
+		}
 		return [];
 	}
-}
+};
 
 program
 	.name('pokemon')

@@ -5,9 +5,9 @@ declare const author: string;
 declare const authorFormatted: string;
 
 export {
-  mainColor,
-  cliName,
-  cliNameHeader,
-  author,
-  authorFormatted
+	mainColor,
+	cliName,
+	cliNameHeader,
+	author,
+	authorFormatted
 };

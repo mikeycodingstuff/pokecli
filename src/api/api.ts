@@ -25,15 +25,19 @@ const getAllPokemon = async () => {
 					id: entry.entry_number,
 					name: entry.pokemon_species.name
 				};
-			})
+			});
 
 			return pokemons;
 		} catch (error) {
 			throw new JsonParseError();
 		}
-	} catch (error: any) {
-		throw new ApiError(error.message);
+	} catch (error) {
+		if (error instanceof Error) {
+			throw new ApiError(error.message);
+		} else {
+			throw new Error('Unknown error occurred');
+		}
 	}
-}
+};
 
 export { getAllPokemon, API_BASE_URL };
