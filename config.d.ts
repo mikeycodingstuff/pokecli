@@ -1,7 +1,13 @@
-declare module 'config.js' {
-	const mainColor: string;
-	const cliName: string;
-	const cliNameHeader: string;
-	const author: string;
-	const authorFormatted: string;
-}
+declare const mainColor: string;
+declare const cliName: string;
+declare const cliNameHeader: string;
+declare const author: string;
+declare const authorFormatted: string;
+
+export {
+  mainColor,
+  cliName,
+  cliNameHeader,
+  author,
+  authorFormatted
+};
