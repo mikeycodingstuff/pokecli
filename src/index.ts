@@ -2,6 +2,7 @@
 
 import { Command } from 'commander';
 import { mainHeader, header } from './helpers/headers.js';
+import { cliName } from '../config.js';
 import { ApiError } from './api/errors.js';
 import * as api from './api/api.js';
 
@@ -51,7 +52,7 @@ const formatAllPokemonData = async () => {
 
 program
 	.name('pokemon')
-	.version('1.0.0', '-v, -V, --vers, --version', 'output the current version')
+	.version(`${cliName} 1.0.0`, '-v, -V, --vers, --version', 'output the current version')
 	.description(description)
 	.option('-a, --all', 'List all pokemon')
 	.addHelpText('before', mainHeader);
