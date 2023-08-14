@@ -1,9 +1,9 @@
 import { NetworkError, JsonParseError } from './errors.js';
-import { PokedexPokemonEntry } from '../types.js';
+import { PokedexPokemonEntry, PokemonAPIType, Pokemon, PokemonType } from '../types.js';
 
 const API_BASE_URL = 'https://pokeapi.co/api/v2/';
 
-const fetchData = async (path: string) => {
+const fetchData = async (path: string): Promise<Response> => {
 	const response = await fetch(`${API_BASE_URL}${path}`);
 
 	if (!response.ok) {
@@ -13,13 +13,13 @@ const fetchData = async (path: string) => {
 	return response;
 };
 
-const getAllPokemons = async () => {
+const getAllPokemons = async (): Promise<Pokemon[]> => {
 	const response = await fetchData('pokedex/1');
 
 	try {
 		const data = await response.json();
 
-		const pokemons = data.pokemon_entries.map((entry: PokedexPokemonEntry) => {
+		const pokemons = data.pokemon_entries.map((entry: PokedexPokemonEntry): Pokemon => {
 			return {
 				id: entry.entry_number,
 				name: entry.pokemon_species.name
@@ -42,9 +42,25 @@ const getRandomPokemon = async () => {
 	try {
 		const data = await response.json();
 
-		return data;
+		const types: PokemonType[] = data.types.map((type_data: PokemonAPIType) => {
+			return {
+				slot: type_data.slot,
+				name: type_data.type.name
+			};
+		});
+
+		const pokemon: Pokemon =  {
+			id: data.id,
+			name: data.name,
+			types: types,
+			weight: data.weight,
+			height: data.height,
+		};
+
+		return pokemon;
 	} catch (error) {
 		throw new JsonParseError();
+		
 	}
 };
 

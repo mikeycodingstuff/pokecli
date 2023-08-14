@@ -17,3 +17,11 @@ export interface PokedexPokemonEntry {
         name: string;
     };
 }
+
+export interface PokemonAPIType {
+  slot: number;
+  type: {
+    name: string;
+    url: string;
+  };
+}
