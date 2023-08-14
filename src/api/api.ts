@@ -71,7 +71,7 @@ const getHighestPokemonId = async () => {
 		const data = await response.json();
 		const lastEntry = data.pokemon_entries[data.pokemon_entries.length - 1];
 
-		return lastEntry.entryNumber;
+		return lastEntry.entry_number;
 	} catch (error) {
 		throw new JsonParseError();
 	}
@@ -84,7 +84,7 @@ const getLowestPokemonId = async () => {
 		const data = await response.json();
 		const lastEntry = data.pokemon_entries[0];
 
-		return lastEntry.entryNumber;
+		return lastEntry.entry_number;
 	} catch (error) {
 		throw new JsonParseError();
 	}
