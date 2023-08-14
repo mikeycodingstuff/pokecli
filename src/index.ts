@@ -2,12 +2,11 @@
 
 import { Command } from 'commander';
 import { mainHeader } from './helpers/headers.js';
-import { cliName } from '../config.js';
+import { cliName, mainColor } from '../config.js';
 import formatAllPokemonData from './helpers/formatAllPokemon.js';
 import displayAllPokemon from './helpers/displayAllPokemon.js';
 import * as api from './api/api.js';
 import chalk from 'chalk';
-import { mainColor } from '../config.js';
 
 const program = new Command();
 
