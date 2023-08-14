@@ -1,5 +1,5 @@
 import { NetworkError, JsonParseError } from './errors.js';
-import { PokedexPokemonEntry, PokemonAPIType, Pokemon, PokemonType } from '../types.js';
+import { ApiPokedexPokemonEntry, ApiPokemonType, Pokemon, PokemonType } from '../types.js';
 
 const API_BASE_URL = 'https://pokeapi.co/api/v2/';
 
@@ -19,10 +19,10 @@ const getAllPokemons = async (): Promise<Pokemon[]> => {
 	try {
 		const data = await response.json();
 
-		const pokemons = data.pokemon_entries.map((entry: PokedexPokemonEntry): Pokemon => {
+		const pokemons = data.pokemon_entries.map((entry: ApiPokedexPokemonEntry): Pokemon => {
 			return {
-				id: entry.entryNumber,
-				name: entry.pokemonSpecies.name
+				id: entry.entry_number,
+				name: entry.pokemon_species.name
 			};
 		});
 
@@ -42,7 +42,7 @@ const getRandomPokemon = async () => {
 	try {
 		const data = await response.json();
 
-		const types: PokemonType[] = data.types.map((typeData: PokemonAPIType) => {
+		const types: PokemonType[] = data.types.map((typeData: ApiPokemonType) => {
 			return {
 				slot: typeData.slot,
 				name: typeData.type.name
