@@ -10,4 +10,4 @@ const header = (text: string) => console.log(`
   ${chalk.bgHex(mainColor)(text)}
 `);
 
-export { mainHeader, header};
+export { mainHeader, header };
