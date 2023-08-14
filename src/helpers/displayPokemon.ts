@@ -20,14 +20,14 @@ const displayPokemonList = (formattedNames: string[]): void => {
 
 const displayType = (type: string) => {
 	let color: string;
-	
+
 	if (type in typeColors) {
 		color = typeColors[type];
 	} else {
 		color = '68a090';
 	}
 
-	return chalk.bgHex(color)(type.toUpperCase());
+	return chalk.black.bgHex(color)(type.toUpperCase());
 };
 
 const displayPokemon = (pokemon: Pokemon): void => {
