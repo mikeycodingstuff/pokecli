@@ -1,5 +1,6 @@
 import { Pokemon } from '../types.js';
 import capitalise from './capitalise.js';
+import { hectogramsToKilograms, decimetersToMeters } from '../helpers/conversions.js';
 
 const displayPokemonList = (formattedNames: string[]): void => {
 	const terminalWidth = process.stdout.columns || 80;
@@ -16,14 +17,14 @@ const displayPokemonList = (formattedNames: string[]): void => {
 };
 
 const displayPokemon = (pokemon: Pokemon): void => {
-	const formattedOutput = `  ID: ${pokemon.id}
-  Name: ${capitalise(pokemon.name)}
-  Types: ${pokemon.types?.map(type => `${type.name}`.toUpperCase()).join(', ')}
-  Weight: ${pokemon.weight} 
-  Height: ${pokemon.height} 
-	`;
+	const kgWeight = pokemon.weight ? hectogramsToKilograms(pokemon.weight) : 'unknown';
+	const mHeight = pokemon.height ? decimetersToMeters(pokemon.height) : 'unknown';
 
-	console.log(formattedOutput);
+	console.log(`  ID: ${pokemon.id}`);
+	console.log(`  Name: ${capitalise(pokemon.name)}`);
+	console.log(`  Types: ${pokemon.types?.map(type => `${type.name}`.toUpperCase()).join(', ')}`);
+	console.log(`  Weight: ${kgWeight}kg`);
+	console.log(`  Height: ${mHeight}m`);
 };
 
 export { displayPokemonList, displayPokemon };
