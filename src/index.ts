@@ -6,7 +6,7 @@ import { cliName, mainColor } from '../config/config.js';
 import * as api from './api/api.js';
 import chalk from 'chalk';
 import { formatAllPokemonsData, formatRandomPokemonData } from './helpers/formatAllPokemon.js';
-import displayAllPokemon from './helpers/displayAllPokemon.js';
+import { displayAllPokemon } from './helpers/displayPokemon.js';
 
 const program = new Command();
 
