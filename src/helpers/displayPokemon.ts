@@ -1,6 +1,6 @@
 import { header } from './headers.js';
 
-const displayAllPokemon = (formattedNames: string[]): void => {
+const displayPokemonList = (formattedNames: string[]): void => {
 	const terminalWidth = process.stdout.columns || 80;
 	const minColumnWidth = 20;
 
@@ -16,4 +16,4 @@ const displayAllPokemon = (formattedNames: string[]): void => {
 	}
 };
 
-export { displayAllPokemon };
+export { displayPokemonList };

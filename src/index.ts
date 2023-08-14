@@ -5,8 +5,8 @@ import { mainHeader } from './helpers/headers.js';
 import { cliName, mainColor } from '../config/config.js';
 import * as api from './api/api.js';
 import chalk from 'chalk';
-import { formatAllPokemonsData, formatRandomPokemonData } from './helpers/formatAllPokemon.js';
-import { displayAllPokemon } from './helpers/displayPokemon.js';
+import { formatPokemonListData, formatRandomPokemonData } from './helpers/formatPokemonData.js';
+import { displayPokemonList } from './helpers/displayPokemon.js';
 
 const program = new Command();
 
@@ -25,8 +25,8 @@ const main = async () => {
 	program.parse(process.argv);
 
 	if (options.all) {
-		const pokemons = await formatAllPokemonsData();
-		displayAllPokemon(pokemons);
+		const pokemons = await formatPokemonListData();
+		displayPokemonList(pokemons);
 	}
 
 	if (options.random) {

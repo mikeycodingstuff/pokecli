@@ -2,7 +2,7 @@ import displayError from './displayError.js';
 import * as api from '../api/api.js';
 import { ApiError } from '../api/errors.js';
 
-const formatAllPokemonsData = async () => {
+const formatPokemonListData = async () => {
 	try {
 		const pokemons = await api.getAllPokemons();
 		const displayNames = [];
@@ -39,4 +39,4 @@ const formatRandomPokemonData = async () => {
 	}
 };
 
-export { formatAllPokemonsData, formatRandomPokemonData };
+export { formatPokemonListData, formatRandomPokemonData };
