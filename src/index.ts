@@ -2,7 +2,7 @@
 
 import { Command } from 'commander';
 import { mainHeader } from './helpers/headers.js';
-import { cliName, mainColor } from '../config.js';
+import { cliName, mainColor } from '../config/config.js';
 import * as api from './api/api.js';
 import chalk from 'chalk';
 import formatAllPokemonData from './helpers/formatAllPokemon.js';
@@ -19,6 +19,7 @@ const main = async () => {
 		.version(`${cliName} 1.0.0`, '-v, -V, --vers, --version', 'output the current version')
 		.description(description)
 		.option('-a, --all', 'List all pokemon')
+		.option('-r, --random', 'List stats for a random pokemon')
 		.addHelpText('before', mainHeader);
 
 	program.parse(process.argv);
