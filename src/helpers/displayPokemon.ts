@@ -1,6 +1,8 @@
-import { Pokemon } from '../types.js';
+import { Pokemon, PokemonType } from '../types.js';
 import capitalise from './capitalise.js';
 import { hectogramsToKilograms, decimetersToMeters } from '../helpers/conversions.js';
+import { typeColors } from '../config/config.js';
+import chalk from 'chalk';
 
 const displayPokemonList = (formattedNames: string[]): void => {
 	const terminalWidth = process.stdout.columns || 80;
@@ -16,13 +18,25 @@ const displayPokemonList = (formattedNames: string[]): void => {
 	}
 };
 
+const displayType = (type: string) => {
+	let color: string;
+	
+	if (type in typeColors) {
+		color = typeColors[type];
+	} else {
+		color = '68a090';
+	}
+
+	return chalk.bgHex(color)(type.toUpperCase());
+};
+
 const displayPokemon = (pokemon: Pokemon): void => {
 	const kgWeight = pokemon.weight ? hectogramsToKilograms(pokemon.weight) : 'unknown';
 	const mHeight = pokemon.height ? decimetersToMeters(pokemon.height) : 'unknown';
 
 	console.log(`  ID: ${pokemon.id}`);
 	console.log(`  Name: ${capitalise(pokemon.name)}`);
-	console.log(`  Types: ${pokemon.types?.map(type => `${type.name}`.toUpperCase()).join(', ')}`);
+	console.log(`  Types: ${pokemon.types?.map((type: PokemonType) => displayType(type.name)).join(', ')}`);
 	console.log(`  Weight: ${kgWeight}kg`);
 	console.log(`  Height: ${mHeight}m`);
 };
