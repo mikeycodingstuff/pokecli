@@ -21,8 +21,8 @@ const getAllPokemons = async (): Promise<Pokemon[]> => {
 
 		const pokemons = data.pokemon_entries.map((entry: PokedexPokemonEntry): Pokemon => {
 			return {
-				id: entry.entry_number,
-				name: entry.pokemon_species.name
+				id: entry.entryNumber,
+				name: entry.pokemonSpecies.name
 			};
 		});
 
@@ -33,19 +33,19 @@ const getAllPokemons = async (): Promise<Pokemon[]> => {
 };
 
 const getRandomPokemon = async () => {
-	const highest_id = await getHighestPokemonId();
-	const lowest_id = await getLowestPokemonId();
-	const random_id = getRandomId(lowest_id, highest_id);
+	const highestId = await getHighestPokemonId();
+	const lowestId = await getLowestPokemonId();
+	const randomId = getRandomId(lowestId, highestId);
 
-	const response = await fetchData(`pokemon/${random_id}`);
+	const response = await fetchData(`pokemon/${randomId}`);
 
 	try {
 		const data = await response.json();
 
-		const types: PokemonType[] = data.types.map((type_data: PokemonAPIType) => {
+		const types: PokemonType[] = data.types.map((typeData: PokemonAPIType) => {
 			return {
-				slot: type_data.slot,
-				name: type_data.type.name
+				slot: typeData.slot,
+				name: typeData.type.name
 			};
 		});
 
@@ -69,9 +69,9 @@ const getHighestPokemonId = async () => {
 
 	try {
 		const data = await response.json();
-		const last_entry = data.pokemon_entries[data.pokemon_entries.length - 1];
+		const lastEntry = data.pokemon_entries[data.pokemon_entries.length - 1];
 
-		return last_entry.entry_number;
+		return lastEntry.entryNumber;
 	} catch (error) {
 		throw new JsonParseError();
 	}
@@ -82,9 +82,9 @@ const getLowestPokemonId = async () => {
 
 	try {
 		const data = await response.json();
-		const last_entry = data.pokemon_entries[0];
+		const lastEntry = data.pokemon_entries[0];
 
-		return last_entry.entry_number;
+		return lastEntry.entryNumber;
 	} catch (error) {
 		throw new JsonParseError();
 	}

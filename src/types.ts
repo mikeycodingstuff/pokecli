@@ -12,8 +12,8 @@ export interface PokemonType {
 }
 
 export interface PokedexPokemonEntry {
-    entry_number: number;
-    pokemon_species: {
+    entryNumber: number;
+    pokemonSpecies: {
         name: string;
     };
 }
