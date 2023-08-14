@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import { mainHeader } from './helpers/headers.js';
-import { cliName, mainColor } from '../config/config.js';
+import { mainHeader, header } from './helpers/headers.js';
+import { cliName, mainColor, pokemonTextCaps } from './config/config.js';
 import * as api from './api/api.js';
 import chalk from 'chalk';
-import { formatPokemonListData, formatRandomPokemonData } from './helpers/formatPokemonData.js';
-import { displayPokemonList } from './helpers/displayPokemon.js';
+import { formatPokemonListData } from './helpers/formatPokemonData.js';
+import { displayPokemonList, displayPokemon } from './helpers/displayPokemon.js';
 
 const program = new Command();
 
@@ -26,12 +26,14 @@ const main = async () => {
 
 	if (options.all) {
 		const pokemons = await formatPokemonListData();
+		header(`All ${pokemonTextCaps}:`);
 		displayPokemonList(pokemons);
 	}
 
 	if (options.random) {
-		const pokemon = await formatRandomPokemonData();
-		console.log(pokemon);
+		const pokemon = await api.getRandomPokemon();
+		header(`Random ${pokemonTextCaps}:`);
+		displayPokemon(pokemon);
 	}
 
 	if (!process.argv.slice(2).length) {
