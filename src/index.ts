@@ -4,6 +4,7 @@ import { Command } from 'commander';
 import { mainHeader, header } from './helpers/headers.js';
 import { cliName } from '../config.js';
 import { ApiError } from './api/errors.js';
+import displayError from './helpers/displayError.js';
 import * as api from './api/api.js';
 
 const program = new Command();
@@ -42,11 +43,12 @@ const formatAllPokemonData = async () => {
 		return displayNames;
 	} catch (error) {
 		if (error instanceof ApiError) {
-			console.error('Error fetching Pokemon: ', error.message);
+			displayError(`Error fetching Pokemon: ${error.message}`);
 		} else {
-			console.error('Unknown error occurred while fetching Pokemon');
+			displayError('Unknown error occurred while fetching Pokemon');
 		}
-		return [];
+		
+		process.exit(1);
 	}
 };
 
