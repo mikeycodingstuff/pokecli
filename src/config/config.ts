@@ -36,5 +36,5 @@ export {
 	authorFormatted,
 	pokemonText,
 	pokemonTextCaps,
-	typeColors
+	typeColors,
 };

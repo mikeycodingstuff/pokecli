@@ -9,13 +9,17 @@ A command line tool built using Node.js and TypeScript that shows pokemon info b
 Make sure you have node installed.
 
 1. Clone this repo:
+
 ```
 $ npm install --global pokemon-cli
 ```
+
 2. Inside the directory, run `npm i` to install dependencies
 3. Run the TypeScript compiler with `npx tsc` or `npm run build`
 4. Run the CLI with
+
 ```
 $ node dist/index.js
 ```
+
 4. Optionally install the package globally with `npm i -g` to run it anywhere with `pokemon`

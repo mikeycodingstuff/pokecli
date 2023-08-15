@@ -13,7 +13,9 @@ const displayPokemonList = (formattedNames: string[]): void => {
 
 	for (let i = 0; i < formattedNames.length; i += columns) {
 		const row = formattedNames.slice(i, i + columns);
-		const formattedRow = row.map((name: string) => name.padEnd(columnWidth)).join('');
+		const formattedRow = row
+			.map((name: string) => name.padEnd(columnWidth))
+			.join('');
 		console.log(formattedRow);
 	}
 };
@@ -31,12 +33,20 @@ const displayType = (type: string): string => {
 };
 
 const displayPokemon = (pokemon: Pokemon): void => {
-	const kgWeight = pokemon.weight ? hectogramsToKilograms(pokemon.weight) : 'unknown';
-	const mHeight = pokemon.height ? decimetersToMeters(pokemon.height) : 'unknown';
+	const kgWeight = pokemon.weight
+		? hectogramsToKilograms(pokemon.weight)
+		: 'unknown';
+	const mHeight = pokemon.height
+		? decimetersToMeters(pokemon.height)
+		: 'unknown';
 
 	console.log(`  ID: ${pokemon.id}`);
 	console.log(`  Name: ${capitalise(pokemon.name)}`);
-	console.log(`  Type(s): ${pokemon.types?.map((type: PokemonType) => displayType(type.name)).join(', ')}`);
+	console.log(
+		`  Type(s): ${pokemon.types
+			?.map((type: PokemonType) => displayType(type.name))
+			.join(', ')}`,
+	);
 	console.log(`  Weight: ${kgWeight}kg`);
 	console.log(`  Height: ${mHeight}m`);
 };

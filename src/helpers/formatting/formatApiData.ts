@@ -1,15 +1,21 @@
 import { JsonParseError } from '../../api/errors.js';
 import {
-	ApiPokedexPokemonEntry, Pokemon, PokemonType, ApiPokemonType, ApiPokemon 
+	ApiPokedexPokemonEntry,
+	Pokemon,
+	PokemonType,
+	ApiPokemonType,
+	ApiPokemon,
 } from '../../types.js';
 import chalkErrorMessage from '../display/chalkErrorMessage.js';
 
-const formatApiPokedexPokemonEntries = ((entries: ApiPokedexPokemonEntry[]): Pokemon[] => {
+const formatApiPokedexPokemonEntries = (
+	entries: ApiPokedexPokemonEntry[],
+): Pokemon[] => {
 	try {
 		return entries.map((entry: ApiPokedexPokemonEntry): Pokemon => {
 			return {
 				id: entry.entry_number,
-				name: entry.pokemon_species.name
+				name: entry.pokemon_species.name,
 			};
 		});
 	} catch (error) {
@@ -21,14 +27,14 @@ const formatApiPokedexPokemonEntries = ((entries: ApiPokedexPokemonEntry[]): Pok
 
 		process.exit(1);
 	}
-});
+};
 
 const formatPokemonData = (data: ApiPokemon): Pokemon => {
 	try {
 		const types: PokemonType[] = data.types.map((typeData: ApiPokemonType) => {
 			return {
 				slot: typeData.slot,
-				name: typeData.type.name
+				name: typeData.type.name,
 			};
 		});
 

@@ -16,7 +16,10 @@ const formatPokemonListData = async (): Promise<string[]> => {
 		return displayNames;
 	} catch (error) {
 		if (!(error instanceof ApiError)) {
-			console.error(displayError('Unknown error occurred while fetching Pokemon'), error);
+			console.error(
+				displayError('Unknown error occurred while fetching Pokemon'),
+				error,
+			);
 		} else {
 			console.error(displayError('Error fetching Pokemon:'), error.message);
 		}

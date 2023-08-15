@@ -3,23 +3,36 @@
 import { Command } from 'commander';
 import { header, mainHeader } from './helpers/display/headers.js';
 import { cliName, mainColor, pokemonTextCaps } from './config/config.js';
-import { API_BASE_URL, getPokemonById, getPokemonByName, getRandomPokemon } from './api/api.js';
+import {
+	API_BASE_URL,
+	getPokemonById,
+	getPokemonByName,
+	getRandomPokemon,
+} from './api/api.js';
 import { formatPokemonListData } from './helpers/formatting/formatPokemonData.js';
 import { formatPokemonData } from './helpers/formatting/formatApiData.js';
-import { displayPokemon, displayPokemonList } from './helpers/display/displayPokemon.js';
+import {
+	displayPokemon,
+	displayPokemonList,
+} from './helpers/display/displayPokemon.js';
 import convertToNumberOrString from './helpers/string/convertToNumberOrString.js';
 import chalk from 'chalk';
 import { ApiPokemon } from './types.js';
 
 const program = new Command();
 
-const description = 'A command line tool that shows pokemon info by consuming the pokemon API ' +
-`(found at ${chalk.hex(mainColor)(API_BASE_URL)})`;
+const description =
+	'A command line tool that shows pokemon info by consuming the pokemon API ' +
+	`(found at ${chalk.hex(mainColor)(API_BASE_URL)})`;
 
 const main = (): void => {
 	program
 		.name('pokemon')
-		.version(`${cliName} 1.0.0`, '-v, -V, --vers, --version', 'output the current version')
+		.version(
+			`${cliName} 1.0.0`,
+			'-v, -V, --vers, --version',
+			'output the current version',
+		)
 		.description(description)
 		.addHelpText('before', mainHeader);
 
@@ -76,9 +89,14 @@ const handlePokemonIdOrName = async (input: string): Promise<undefined> => {
 	}
 };
 
-const handleSinglePokemon = async (data: ApiPokemon, random: boolean = false): Promise<void> => {
+const handleSinglePokemon = async (
+	data: ApiPokemon,
+	random: boolean = false,
+): Promise<void> => {
 	const pokemon = await formatPokemonData(data);
-	const headerText = random ? ` Random ${pokemonTextCaps}: ` : ` ${pokemonTextCaps}: `;
+	const headerText = random
+		? ` Random ${pokemonTextCaps}: `
+		: ` ${pokemonTextCaps}: `;
 	header(headerText);
 	displayPokemon(pokemon);
 };

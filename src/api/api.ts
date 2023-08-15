@@ -9,7 +9,9 @@ const fetchData = async (path: string): Promise<Response> => {
 		const response = await fetch(`${API_BASE_URL}${path}`);
 
 		if (!response.ok) {
-			throw new NetworkError(`Request failed - ${response.status} ${response.statusText}`);
+			throw new NetworkError(
+				`Request failed - ${response.status} ${response.statusText}`,
+			);
 		}
 
 		return response;
@@ -85,7 +87,9 @@ const getRandomId = (min: number, max: number): number => {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-const getSinglePokemonInfo = async (value: string | number): Promise<ApiPokemon> => {
+const getSinglePokemonInfo = async (
+	value: string | number,
+): Promise<ApiPokemon> => {
 	try {
 		const response = await fetchData(`pokemon/${value}`);
 		return await response.json();
@@ -109,5 +113,9 @@ const getPokemonById = async (id: number): Promise<ApiPokemon> => {
 };
 
 export {
-	API_BASE_URL, getAllPokemons, getPokemonById, getPokemonByName, getRandomPokemon 
+	API_BASE_URL,
+	getAllPokemons,
+	getPokemonById,
+	getPokemonByName,
+	getRandomPokemon,
 };
