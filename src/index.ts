@@ -1,17 +1,17 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import { mainHeader, header } from './helpers/display/headers.js';
+import { header, mainHeader } from './helpers/display/headers.js';
 import { cliName, mainColor, pokemonTextCaps } from './config/config.js';
-import * as api from './api/api.js';
-import chalk from 'chalk';
+import { API_BASE_URL, getRandomPokemon } from './api/api.js';
 import { formatPokemonListData } from './helpers/formatting/formatPokemonData.js';
 import { formatPokemonData } from './helpers/formatting/formatApiData.js';
-import { displayPokemonList, displayPokemon } from './helpers/display/displayPokemon.js';
+import { displayPokemon, displayPokemonList } from './helpers/display/displayPokemon.js';
+import chalk from 'chalk';
 
 const program = new Command();
 
-const description = `A command line tool that shows pokemon info by consuming the pokemon API (found at ${chalk.hex(mainColor)(api.API_BASE_URL)})`;
+const description = `A command line tool that shows pokemon info by consuming the pokemon API (found at ${chalk.hex(mainColor)(API_BASE_URL)})`;
 const options = program.opts();
 
 const main = async () => {
@@ -47,7 +47,7 @@ const handleAll = async () => {
 };
 
 const handleRandom = async () => {
-	const data = await api.getRandomPokemon();
+	const data = await getRandomPokemon();
 	const pokemon = formatPokemonData(data);
 	header(`Random ${pokemonTextCaps}:`);
 	displayPokemon(pokemon);
