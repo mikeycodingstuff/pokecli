@@ -1,10 +1,12 @@
 import displayError from '../display/chalkErrorMessage.js';
 import * as api from '../../api/api.js';
 import { ApiError } from '../../api/errors.js';
+import { mapApiPokedexEntryToPokemon } from './formatApiData.js';
 
 const formatPokemonListData = async () => {
 	try {
-		const pokemons = await api.getAllPokemons();
+		const data = await api.getAllPokemons();
+		const pokemons = mapApiPokedexEntryToPokemon(data.pokemon_entries);
 		const displayNames = [];
 
 		for (const pokemon of pokemons) {

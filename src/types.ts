@@ -11,6 +11,10 @@ export interface PokemonType {
   name: string;
 }
 
+export interface ApiPokedexData {
+  pokemon_entries: ApiPokedexPokemonEntry[];
+}
+
 export interface ApiPokedexPokemonEntry {
   entry_number: number;
   pokemon_species: {
