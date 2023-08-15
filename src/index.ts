@@ -7,6 +7,7 @@ import { API_BASE_URL, getRandomPokemon } from './api/api.js';
 import { formatPokemonListData } from './helpers/formatting/formatPokemonData.js';
 import { formatPokemonData } from './helpers/formatting/formatApiData.js';
 import { displayPokemon, displayPokemonList } from './helpers/display/displayPokemon.js';
+import convertToNumberOrString from './helpers/string/convertToNumberOrString.js';
 import chalk from 'chalk';
 
 const program = new Command();
@@ -19,7 +20,7 @@ const main = async () => {
 		.name('pokemon')
 		.version(`${cliName} 1.0.0`, '-v, -V, --vers, --version', 'output the current version')
 		.argument('[id/name]', 'find a pokemon by its national pokedex id or name')
-		.action((idName) => handlePokemonIdOrName(idName))
+		.action((idOrName) => handlePokemonIdOrName(idOrName))
 		.description(description)
 		.option('-a, --all', 'List all pokemon')
 		.option('-r, --random', 'List stats for a random pokemon')
@@ -53,8 +54,8 @@ const handleRandom = async () => {
 	displayPokemon(pokemon);
 };
 
-const handlePokemonIdOrName = async (idName: number | string) => {
-	console.log(`this function will handle pokemon id or name. id/name = ${idName}`);
+const handlePokemonIdOrName = async (idOrName: string) => {
+	console.log(convertToNumberOrString(idOrName));
 };
 
 main();
