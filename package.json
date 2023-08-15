@@ -8,6 +8,7 @@
 	},
 	"scripts": {
 		"build": "npx tsc && npx prettier . --check && npx eslint . --ext .ts",
+		"prettier": "npx prettier . --write",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"type": "module",
