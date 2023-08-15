@@ -1,5 +1,5 @@
 import { NetworkError, JsonParseError } from './errors.js';
-import { ApiPokedexData, ApiPokemonType, Pokemon, PokemonType } from '../types.js';
+import { ApiPokedexData } from '../types.js';
 import chalkErrorMessage from '../helpers/display/chalkErrorMessage.js';
 
 const API_BASE_URL = 'https://pokeapi.co/api/v2/';
@@ -46,22 +46,7 @@ const getRandomPokemon = async () => {
 	try {
 		const data = await response.json();
 
-		const types: PokemonType[] = data.types.map((typeData: ApiPokemonType) => {
-			return {
-				slot: typeData.slot,
-				name: typeData.type.name
-			};
-		});
-
-		const pokemon: Pokemon = {
-			id: data.id,
-			name: data.name,
-			types: types,
-			weight: data.weight,
-			height: data.height,
-		};
-
-		return pokemon;
+		return data;
 	} catch (error) {
 		throw new JsonParseError();
 

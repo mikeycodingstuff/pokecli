@@ -1,4 +1,4 @@
-export interface Pokemon {
+interface Pokemon {
   id: number;
   name: string;
   types?: PokemonType[];
@@ -6,26 +6,43 @@ export interface Pokemon {
   height?: number;
 }
 
-export interface PokemonType {
+interface PokemonType {
   slot: number;
   name: string;
 }
 
-export interface ApiPokedexData {
+interface ApiPokedexData {
   pokemon_entries: ApiPokedexPokemonEntry[];
 }
 
-export interface ApiPokedexPokemonEntry {
+interface ApiPokedexPokemonEntry {
   entry_number: number;
   pokemon_species: {
     name: string;
   };
 }
 
-export interface ApiPokemonType {
+interface ApiPokemon {
+  id: number;
+  name: string;
+  types: ApiPokemonType[];
+  weight: number;
+  height: number;
+}
+
+interface ApiPokemonType {
   slot: number;
   type: {
     name: string;
     url: string;
   };
 }
+
+export {
+	Pokemon,
+	PokemonType,
+	ApiPokedexData,
+	ApiPokedexPokemonEntry,
+	ApiPokemon,
+	ApiPokemonType
+};

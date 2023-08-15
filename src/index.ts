@@ -6,6 +6,7 @@ import { cliName, mainColor, pokemonTextCaps } from './config/config.js';
 import * as api from './api/api.js';
 import chalk from 'chalk';
 import { formatPokemonListData } from './helpers/formatting/formatPokemonData.js';
+import { formatPokemonData } from './helpers/formatting/formatApiData.js';
 import { displayPokemonList, displayPokemon } from './helpers/display/displayPokemon.js';
 
 const program = new Command();
@@ -31,7 +32,8 @@ const main = async () => {
 	}
 
 	if (options.random) {
-		const pokemon = await api.getRandomPokemon();
+		const data = await api.getRandomPokemon();
+		const pokemon = formatPokemonData(data);
 		header(`Random ${pokemonTextCaps}:`);
 		displayPokemon(pokemon);
 	}
