@@ -57,7 +57,7 @@ const getRandomPokemon = async () => {
 	}
 };
 
-const getHighestPokemonId = async () => {
+const getHighestPokemonId = async (): Promise<number> => {
 	const response = await fetchData('pokedex/1');
 
 	try {
@@ -70,7 +70,7 @@ const getHighestPokemonId = async () => {
 	}
 };
 
-const getLowestPokemonId = async () => {
+const getLowestPokemonId = async (): Promise<number> => {
 	const response = await fetchData('pokedex/1');
 
 	try {
@@ -83,7 +83,7 @@ const getLowestPokemonId = async () => {
 	}
 };
 
-const getRandomId = (min: number, max: number) => {
+const getRandomId = (min: number, max: number): number => {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
