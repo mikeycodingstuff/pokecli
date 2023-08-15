@@ -23,7 +23,6 @@ const formatApiPokedexPokemonEntries = ((entries: ApiPokedexPokemonEntry[]): Pok
 
 const formatPokemonData = (data: ApiPokemon): Pokemon => {
 	try {
-		console.log(data);
 		const types: PokemonType[] = data.types.map((typeData: ApiPokemonType) => {
 			return {
 				slot: typeData.slot,
