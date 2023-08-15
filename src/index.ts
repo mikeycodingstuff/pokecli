@@ -3,7 +3,7 @@
 import { Command } from 'commander';
 import { header, mainHeader } from './helpers/display/headers.js';
 import { cliName, mainColor, pokemonTextCaps } from './config/config.js';
-import { API_BASE_URL, getRandomPokemon, getPokemonByName } from './api/api.js';
+import { API_BASE_URL, getPokemonById, getPokemonByName, getRandomPokemon } from './api/api.js';
 import { formatPokemonListData } from './helpers/formatting/formatPokemonData.js';
 import { formatPokemonData } from './helpers/formatting/formatApiData.js';
 import { displayPokemon, displayPokemonList } from './helpers/display/displayPokemon.js';
@@ -67,11 +67,17 @@ const handlePokemonIdOrName = async (input: string) => {
 		const data = await getPokemonByName(name);
 		handleSinglePokemon(data);
 	}
+
+	if (typeof parsedInput === 'number') {
+		const id = parsedInput;
+		const data = await getPokemonById(id);
+		handleSinglePokemon(data);
+	}
 };
 
 const handleSinglePokemon = async (data: ApiPokemon, random: boolean = false) => {
 	const pokemon = formatPokemonData(data);
-	const headerText = random ? `Random ${pokemonTextCaps}:` : ` ${pokemonTextCaps}:`;
+	const headerText = random ? ` Random ${pokemonTextCaps}: ` : ` ${pokemonTextCaps}: `;
 	header(headerText);
 	displayPokemon(pokemon);
 };

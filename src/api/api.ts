@@ -1,5 +1,5 @@
-import {JsonParseError, NetworkError} from './errors.js';
-import {ApiPokedexData} from '../types.js';
+import { JsonParseError, NetworkError } from './errors.js';
+import { ApiPokedexData, ApiPokemon } from '../types.js';
 import chalkErrorMessage from '../helpers/display/chalkErrorMessage.js';
 
 const API_BASE_URL = 'https://pokeapi.co/api/v2/';
@@ -34,7 +34,7 @@ const getAllPokemons = async (): Promise<ApiPokedexData> => {
 	}
 };
 
-const getRandomPokemon = async () => {
+const getRandomPokemon = async (): Promise<ApiPokemon> => {
 	try {
 		const highestId = await getHighestPokemonId();
 		const lowestId = await getLowestPokemonId();
@@ -85,9 +85,9 @@ const getRandomId = (min: number, max: number): number => {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-const getPokemonByName = async (name: string) => {
+const getSinglePokemonInfo = async (value: string | number): Promise<ApiPokemon> => {
 	try {
-		const response = await fetchData(`pokemon/${name}`);
+		const response = await fetchData(`pokemon/${value}`);
 		return await response.json();
 	} catch (error) {
 		if (!(error instanceof NetworkError)) {
@@ -100,4 +100,12 @@ const getPokemonByName = async (name: string) => {
 	}
 };
 
-export { API_BASE_URL, getAllPokemons, getRandomPokemon, getPokemonByName };
+const getPokemonByName = async (name: string): Promise<ApiPokemon> => {
+	return getSinglePokemonInfo(name);
+};
+
+const getPokemonById = async (id: number): Promise<ApiPokemon> => {
+	return getSinglePokemonInfo(id);
+};
+
+export { API_BASE_URL, getAllPokemons, getPokemonById, getPokemonByName, getRandomPokemon };
