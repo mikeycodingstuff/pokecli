@@ -14,10 +14,10 @@ const fetchData = async (path: string): Promise<Response> => {
 
 		return response;
 	} catch (error) {
-		if (error instanceof NetworkError) {
-			console.error(chalkErrorMessage('Network error:'), error.message);
+		if (!(error instanceof NetworkError)) {
+			console.error(chalkErrorMessage('An unexpected error occurred:'), error);
 		} else {
-			console.error(chalkErrorMessage('An unexpected error occurred:'));
+			console.error(chalkErrorMessage(`${error.name} error:`), error.message);
 		}
 
 		process.exit(1);
@@ -37,19 +37,23 @@ const getAllPokemons = async (): Promise<ApiPokedexData> => {
 };
 
 const getRandomPokemon = async () => {
-	const highestId = await getHighestPokemonId();
-	const lowestId = await getLowestPokemonId();
-	const randomId = getRandomId(lowestId, highestId);
-
-	const response = await fetchData(`pokemon/${randomId}`);
-
 	try {
+		const highestId = await getHighestPokemonId();
+		const lowestId = await getLowestPokemonId();
+		const randomId = getRandomId(lowestId, highestId);
+
+		const response = await fetchData(`pokemon/${randomId}`);
 		const data = await response.json();
 
 		return data;
 	} catch (error) {
-		throw new JsonParseError();
+		if (!(error instanceof NetworkError || error instanceof JsonParseError)) {
+			console.error(chalkErrorMessage('An unexpected error occurred.'));
+		} else {
+			console.error(chalkErrorMessage(`${error.name} error:`), error.message);
+		}
 
+		process.exit(1);
 	}
 };
 

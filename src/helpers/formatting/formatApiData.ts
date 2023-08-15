@@ -11,10 +11,10 @@ const formatApiPokedexPokemonEntries = ((entries: ApiPokedexPokemonEntry[]): Pok
 			};
 		});
 	} catch (error) {
-		if (error instanceof JsonParseError) {
-			console.error(chalkErrorMessage(error.message));
+		if (!(error instanceof JsonParseError)) {
+			console.error(chalkErrorMessage('An unexpected error occurred.'));
 		} else {
-			console.error(chalkErrorMessage('An unexpected error occurred:'));
+			console.error(chalkErrorMessage(`${error.name} error:`), error.message);
 		}
 
 		process.exit(1);
@@ -40,10 +40,10 @@ const formatPokemonData = (data: ApiPokemon): Pokemon => {
 
 		return pokemon;
 	} catch (error) {
-		if (error instanceof JsonParseError) {
-			console.error(chalkErrorMessage(error.message));
-		} else {
+		if (!(error instanceof JsonParseError)) {
 			console.error(chalkErrorMessage('An unexpected error occurred:'));
+		} else {
+			console.error(chalkErrorMessage(error.message));
 		}
 
 		process.exit(1);
