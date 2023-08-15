@@ -108,4 +108,6 @@ const getPokemonById = async (id: number): Promise<ApiPokemon> => {
 	return await getSinglePokemonInfo(id);
 };
 
-export { API_BASE_URL, getAllPokemons, getPokemonById, getPokemonByName, getRandomPokemon };
+export {
+	API_BASE_URL, getAllPokemons, getPokemonById, getPokemonByName, getRandomPokemon 
+};

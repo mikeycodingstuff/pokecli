@@ -22,6 +22,12 @@
         "no-cond-assign": "error",
         "no-multi-spaces": "error",
         "no-unused-vars": "error",
+        "object-curly-newline": ["error", {
+            "ObjectExpression": { "multiline": true, "minProperties": 5 },
+            "ObjectPattern": { "multiline": true, "minProperties": 5 },
+            "ImportDeclaration": { "multiline": true, "minProperties": 5 },
+            "ExportDeclaration": { "multiline": true, "minProperties": 5 }
+          }],
         "object-curly-spacing": ["error", "always"],
         "require-await": "error",
         "indent": [
@@ -33,7 +39,7 @@
             "unix"
         ],
         "max-len": [
-            "error", {"code": 120 }
+            "error", { "code": 120 }
         ],
         "quotes": [
             "error",
