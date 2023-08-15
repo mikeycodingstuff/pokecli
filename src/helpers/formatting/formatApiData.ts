@@ -2,7 +2,7 @@ import { JsonParseError } from '../../api/errors.js';
 import { ApiPokedexPokemonEntry, Pokemon } from '../../types.js';
 import chalkErrorMessage from '../display/chalkErrorMessage.js';
 
-const mapApiDexPokemonEntryToPokemon = ((entries: ApiPokedexPokemonEntry[]): Pokemon[] => {
+const formatApiPokedexPokemonEntries = ((entries: ApiPokedexPokemonEntry[]): Pokemon[] => {
 	try {
 		return entries.map((entry: ApiPokedexPokemonEntry): Pokemon => {
 			return {
@@ -21,4 +21,4 @@ const mapApiDexPokemonEntryToPokemon = ((entries: ApiPokedexPokemonEntry[]): Pok
 	}
 });
 
-export { mapApiDexPokemonEntryToPokemon };
+export { formatApiPokedexPokemonEntries };
