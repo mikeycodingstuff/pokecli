@@ -101,11 +101,11 @@ const getSinglePokemonInfo = async (value: string | number): Promise<ApiPokemon>
 };
 
 const getPokemonByName = async (name: string): Promise<ApiPokemon> => {
-	return getSinglePokemonInfo(name);
+	return await getSinglePokemonInfo(name);
 };
 
 const getPokemonById = async (id: number): Promise<ApiPokemon> => {
-	return getSinglePokemonInfo(id);
+	return await getSinglePokemonInfo(id);
 };
 
 export { API_BASE_URL, getAllPokemons, getPokemonById, getPokemonByName, getRandomPokemon };
