@@ -36,7 +36,7 @@ const displayPokemon = (pokemon: Pokemon): void => {
 
 	console.log(`  ID: ${pokemon.id}`);
 	console.log(`  Name: ${capitalise(pokemon.name)}`);
-	console.log(`  Types: ${pokemon.types?.map((type: PokemonType) => displayType(type.name)).join(', ')}`);
+	console.log(`  Type(s): ${pokemon.types?.map((type: PokemonType) => displayType(type.name)).join(', ')}`);
 	console.log(`  Weight: ${kgWeight}kg`);
 	console.log(`  Height: ${mHeight}m`);
 };
