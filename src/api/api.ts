@@ -1,5 +1,5 @@
-import { NetworkError, JsonParseError } from './errors.js';
-import { ApiPokedexData } from '../types.js';
+import {JsonParseError, NetworkError} from './errors.js';
+import {ApiPokedexData} from '../types.js';
 import chalkErrorMessage from '../helpers/display/chalkErrorMessage.js';
 
 const API_BASE_URL = 'https://pokeapi.co/api/v2/';
@@ -28,9 +28,7 @@ const getAllPokemons = async (): Promise<ApiPokedexData> => {
 	const response = await fetchData('pokedex/1');
 
 	try {
-		const data = await response.json();
-
-		return data;
+		return await response.json();
 	} catch (error) {
 		throw new JsonParseError();
 	}
@@ -40,12 +38,12 @@ const getRandomPokemon = async () => {
 	try {
 		const highestId = await getHighestPokemonId();
 		const lowestId = await getLowestPokemonId();
+
 		const randomId = getRandomId(lowestId, highestId);
 
 		const response = await fetchData(`pokemon/${randomId}`);
-		const data = await response.json();
 
-		return data;
+		return await response.json();
 	} catch (error) {
 		if (!(error instanceof NetworkError || error instanceof JsonParseError)) {
 			console.error(chalkErrorMessage('An unexpected error occurred.'));
