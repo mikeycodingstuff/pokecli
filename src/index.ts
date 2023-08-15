@@ -3,38 +3,41 @@
 import { Command } from 'commander';
 import { header, mainHeader } from './helpers/display/headers.js';
 import { cliName, mainColor, pokemonTextCaps } from './config/config.js';
-import { API_BASE_URL, getRandomPokemon } from './api/api.js';
+import { API_BASE_URL, getRandomPokemon, getPokemonByName } from './api/api.js';
 import { formatPokemonListData } from './helpers/formatting/formatPokemonData.js';
 import { formatPokemonData } from './helpers/formatting/formatApiData.js';
 import { displayPokemon, displayPokemonList } from './helpers/display/displayPokemon.js';
 import convertToNumberOrString from './helpers/string/convertToNumberOrString.js';
 import chalk from 'chalk';
+import { ApiPokemon } from './types.js';
 
 const program = new Command();
 
 const description = `A command line tool that shows pokemon info by consuming the pokemon API (found at ${chalk.hex(mainColor)(API_BASE_URL)})`;
-const options = program.opts();
 
 const main = async () => {
 	program
 		.name('pokemon')
 		.version(`${cliName} 1.0.0`, '-v, -V, --vers, --version', 'output the current version')
-		.argument('[id/name]', 'find a pokemon by its national pokedex id or name')
-		.action((idOrName) => handlePokemonIdOrName(idOrName))
 		.description(description)
-		.option('-a, --all', 'List all pokemon')
-		.option('-r, --random', 'List stats for a random pokemon')
 		.addHelpText('before', mainHeader);
 
+	program
+		.argument('[id/name]', 'find a pokemon by its national pokedex id or name')
+		.action((idOrName) => handlePokemonIdOrName(idOrName));
+
+	program
+		.command('all')
+		.description('List all pokemon')
+		.action(() => handleAll());
+
+	program
+		.command('random')
+		.alias('rand')
+		.description('List stats for a random pokemon')
+		.action(() => handleRandom());
+
 	program.parse(process.argv);
-
-	if (options.all) {
-		handleAll();
-	}
-
-	if (options.random) {
-		handleRandom();
-	}
 
 	if (!process.argv.slice(2).length) {
 		program.outputHelp();
@@ -49,13 +52,28 @@ const handleAll = async () => {
 
 const handleRandom = async () => {
 	const data = await getRandomPokemon();
-	const pokemon = formatPokemonData(data);
-	header(`Random ${pokemonTextCaps}:`);
-	displayPokemon(pokemon);
+	handleSinglePokemon(data, true);
 };
 
-const handlePokemonIdOrName = async (idOrName: string) => {
-	console.log(convertToNumberOrString(idOrName));
+const handlePokemonIdOrName = async (input: string) => {
+	if (!input) {
+		return;
+	}
+
+	const parsedInput = convertToNumberOrString(input);
+
+	if (typeof parsedInput === 'string') {
+		const name = parsedInput.toLowerCase();
+		const data = await getPokemonByName(name);
+		handleSinglePokemon(data);
+	}
+};
+
+const handleSinglePokemon = async (data: ApiPokemon, random: boolean = false) => {
+	const pokemon = formatPokemonData(data);
+	const headerText = random ? `Random ${pokemonTextCaps}:` : ` ${pokemonTextCaps}:`;
+	header(headerText);
+	displayPokemon(pokemon);
 };
 
 main();

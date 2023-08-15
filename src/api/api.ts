@@ -85,4 +85,19 @@ const getRandomId = (min: number, max: number): number => {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-export { getAllPokemons, getRandomPokemon, API_BASE_URL };
+const getPokemonByName = async (name: string) => {
+	try {
+		const response = await fetchData(`pokemon/${name}`);
+		return await response.json();
+	} catch (error) {
+		if (!(error instanceof NetworkError)) {
+			console.error(chalkErrorMessage('An unexpected error occurred.'));
+		} else {
+			console.error(chalkErrorMessage(`${error.name} error:`), error.message);
+		}
+
+		process.exit(1);
+	}
+};
+
+export { API_BASE_URL, getAllPokemons, getRandomPokemon, getPokemonByName };
