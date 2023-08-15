@@ -1,4 +1,4 @@
-import displayError from './displayError.js';
+import displayError from './chalkErrorMessage.js';
 import * as api from '../api/api.js';
 import { ApiError } from '../api/errors.js';
 
@@ -14,9 +14,11 @@ const formatPokemonListData = async () => {
 		return displayNames;
 	} catch (error) {
 		if (error instanceof ApiError) {
-			displayError(`Error fetching Pokemon: ${error.message}`);
+			console.error(displayError('Error fetching Pokemon:'), error.message);
+		} else if (error instanceof Error) {
+			console.error(displayError('Error:'), error.message);
 		} else {
-			displayError('Unknown error occurred while fetching Pokemon');
+			console.error(displayError('Unknown error occurred while fetching Pokemon'));
 		}
 
 		process.exit(1);
