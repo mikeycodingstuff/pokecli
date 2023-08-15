@@ -7,7 +7,7 @@
     "pokemon": "./dist/index.js"
   },
   "scripts": {
-    "build": "npx tsc",
+    "build": "npx tsc && npx eslint . --ext .ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "type": "module",
