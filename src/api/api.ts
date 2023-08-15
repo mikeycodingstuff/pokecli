@@ -1,6 +1,7 @@
 import { JsonParseError, NetworkError } from './errors.js';
 import { ApiPokedexData, ApiPokemon } from '../types.js';
 import chalkErrorMessage from '../helpers/display/chalkErrorMessage.js';
+import { getRandomId } from '../helpers/number/randomId.js';
 
 const API_BASE_URL = 'https://pokeapi.co/api/v2/';
 
@@ -81,10 +82,6 @@ const getLowestPokemonId = async (): Promise<number> => {
 	} catch (error) {
 		throw new JsonParseError();
 	}
-};
-
-const getRandomId = (min: number, max: number): number => {
-	return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 const getSinglePokemonInfo = async (

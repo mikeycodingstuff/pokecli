@@ -1,6 +1,9 @@
 import { Pokemon, PokemonType } from '../../types.js';
 import capitalise from '../string/capitalise.js';
-import { hectogramsToKilograms, decimetersToMeters } from '../conversions.js';
+import {
+	hectogramsToKilograms,
+	decimetersToMeters,
+} from '../number/conversions.js';
 import { typeColors } from '../../config/config.js';
 import chalk from 'chalk';
 
