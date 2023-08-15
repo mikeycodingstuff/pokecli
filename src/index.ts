@@ -18,6 +18,8 @@ const main = async () => {
 	program
 		.name('pokemon')
 		.version(`${cliName} 1.0.0`, '-v, -V, --vers, --version', 'output the current version')
+		.argument('[id/name]', 'find a pokemon by its national pokedex id or name')
+		.action((idName) => handlePokemonIdOrName(idName))
 		.description(description)
 		.option('-a, --all', 'List all pokemon')
 		.option('-r, --random', 'List stats for a random pokemon')
@@ -26,21 +28,33 @@ const main = async () => {
 	program.parse(process.argv);
 
 	if (options.all) {
-		const pokemons = await formatPokemonListData();
-		header(`All ${pokemonTextCaps}:`);
-		displayPokemonList(pokemons);
+		handleAll();
 	}
 
 	if (options.random) {
-		const data = await api.getRandomPokemon();
-		const pokemon = formatPokemonData(data);
-		header(`Random ${pokemonTextCaps}:`);
-		displayPokemon(pokemon);
+		handleRandom();
 	}
 
 	if (!process.argv.slice(2).length) {
 		program.outputHelp();
 	}
+};
+
+const handleAll = async () => {
+	const pokemons = await formatPokemonListData();
+	header(`All ${pokemonTextCaps}:`);
+	displayPokemonList(pokemons);
+};
+
+const handleRandom = async () => {
+	const data = await api.getRandomPokemon();
+	const pokemon = formatPokemonData(data);
+	header(`Random ${pokemonTextCaps}:`);
+	displayPokemon(pokemon);
+};
+
+const handlePokemonIdOrName = async (idName: number | string) => {
+	console.log(`this function will handle pokemon id or name. id/name = ${idName}`);
 };
 
 main();
