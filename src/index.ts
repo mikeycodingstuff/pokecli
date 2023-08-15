@@ -13,7 +13,8 @@ import { ApiPokemon } from './types.js';
 
 const program = new Command();
 
-const description = `A command line tool that shows pokemon info by consuming the pokemon API (found at ${chalk.hex(mainColor)(API_BASE_URL)})`;
+const description = 'A command line tool that shows pokemon info by consuming the pokemon API ' +
+`(found at ${chalk.hex(mainColor)(API_BASE_URL)})`;
 
 const main = async (): Promise<void> => {
 	program

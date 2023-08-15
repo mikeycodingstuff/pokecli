@@ -16,6 +16,7 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "@typescript-eslint/explicit-function-return-type": "error",
         "indent": [
             "error",
             "tab"
@@ -24,6 +25,9 @@
             "error",
             "unix"
         ],
+        "max-len": [
+            "error", {"code": 120 }
+        ],
         "quotes": [
             "error",
             "single"
@@ -31,7 +35,6 @@
         "semi": [
             "error",
             "always"
-        ],
-        "@typescript-eslint/explicit-function-return-type": "error"
+        ]
     }
 }
