@@ -18,6 +18,7 @@
     "rules": {
         "@typescript-eslint/explicit-function-return-type": "error",
         "camelcase": "error",
+        "no-unused-vars": "error",
         "indent": [
             "error",
             "tab"
