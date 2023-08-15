@@ -1,16 +1,27 @@
 import { NetworkError, JsonParseError } from './errors.js';
 import { ApiPokedexPokemonEntry, ApiPokemonType, Pokemon, PokemonType } from '../types.js';
+import chalkErrorMessage from '../helpers/chalkErrorMessage.js';
 
 const API_BASE_URL = 'https://pokeapi.co/api/v2/';
 
 const fetchData = async (path: string): Promise<Response> => {
-	const response = await fetch(`${API_BASE_URL}${path}`);
+	try {
+		const response = await fetch(`${API_BASE_URL}${path}`);
 
-	if (!response.ok) {
-		throw new NetworkError(`Request failed - ${response.status} ${response.statusText}`);
+		if (!response.ok) {
+			throw new NetworkError(`Request failed - ${response.status} ${response.statusText}`);
+		}
+
+		return response;
+	} catch (error) {
+		if (error instanceof NetworkError) {
+			console.error(chalkErrorMessage('Network error:'), error.message);
+		} else {
+			console.error(chalkErrorMessage('An unexpected error occurred:'));
+		}
+
+		process.exit(1);
 	}
-
-	return response;
 };
 
 const getAllPokemons = async (): Promise<Pokemon[]> => {
@@ -49,7 +60,7 @@ const getRandomPokemon = async () => {
 			};
 		});
 
-		const pokemon: Pokemon =  {
+		const pokemon: Pokemon = {
 			id: data.id,
 			name: data.name,
 			types: types,
@@ -60,7 +71,7 @@ const getRandomPokemon = async () => {
 		return pokemon;
 	} catch (error) {
 		throw new JsonParseError();
-		
+
 	}
 };
 
