@@ -1,6 +1,6 @@
-import displayError from './display/chalkErrorMessage.js';
-import * as api from '../api/api.js';
-import { ApiError } from '../api/errors.js';
+import displayError from '../display/chalkErrorMessage.js';
+import * as api from '../../api/api.js';
+import { ApiError } from '../../api/errors.js';
 
 const formatPokemonListData = async () => {
 	try {
