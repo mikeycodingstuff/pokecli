@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import { mainHeader, header } from './helpers/headers.js';
+import { mainHeader, header } from './helpers/display/headers.js';
 import { cliName, mainColor, pokemonTextCaps } from './config/config.js';
 import * as api from './api/api.js';
 import chalk from 'chalk';
 import { formatPokemonListData } from './helpers/formatPokemonData.js';
-import { displayPokemonList, displayPokemon } from './helpers/displayPokemon.js';
+import { displayPokemonList, displayPokemon } from './helpers/display/displayPokemon.js';
 
 const program = new Command();
 

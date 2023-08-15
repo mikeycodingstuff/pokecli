@@ -1,6 +1,6 @@
 import { NetworkError, JsonParseError } from './errors.js';
 import { ApiPokedexPokemonEntry, ApiPokemonType, Pokemon, PokemonType } from '../types.js';
-import chalkErrorMessage from '../helpers/chalkErrorMessage.js';
+import chalkErrorMessage from '../helpers/display/chalkErrorMessage.js';
 
 const API_BASE_URL = 'https://pokeapi.co/api/v2/';
 

@@ -1,4 +1,4 @@
-import capitalise from '../helpers/capitalise.js';
+import capitalise from '../helpers/string/capitalise.js';
 
 const mainColor = '#7b62ac';
 const cliName = 'pokemon-cli';

@@ -1,4 +1,4 @@
-import displayError from './chalkErrorMessage.js';
+import displayError from './display/chalkErrorMessage.js';
 import * as api from '../api/api.js';
 import { ApiError } from '../api/errors.js';
 
