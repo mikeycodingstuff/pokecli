@@ -3,7 +3,7 @@ import { ApiError } from '../../api/errors.js';
 import { formatApiPokedexPokemonEntries } from './formatApiData.js';
 import displayError from '../display/chalkErrorMessage.js';
 
-const formatPokemonListData = async () => {
+const formatPokemonListData = async (): Promise<string[]> => {
 	try {
 		const data = await getAllPokemons();
 		const pokemons = formatApiPokedexPokemonEntries(data.pokemon_entries);

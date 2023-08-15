@@ -6,7 +6,7 @@ const mainHeader = `
   by ${chalk.hex(mainColor)(authorFormatted)}
 `;
 
-const header = (text: string) => console.log(`
+const header = (text: string): void => console.log(`
   ${chalk.bgHex(mainColor)(text)}
 `);
 

@@ -18,7 +18,7 @@ const displayPokemonList = (formattedNames: string[]): void => {
 	}
 };
 
-const displayType = (type: string) => {
+const displayType = (type: string): string => {
 	let color: string;
 
 	if (type in typeColors) {

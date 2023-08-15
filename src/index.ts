@@ -15,7 +15,7 @@ const program = new Command();
 
 const description = `A command line tool that shows pokemon info by consuming the pokemon API (found at ${chalk.hex(mainColor)(API_BASE_URL)})`;
 
-const main = async () => {
+const main = async (): Promise<void> => {
 	program
 		.name('pokemon')
 		.version(`${cliName} 1.0.0`, '-v, -V, --vers, --version', 'output the current version')
@@ -44,18 +44,18 @@ const main = async () => {
 	}
 };
 
-const handleAll = async () => {
+const handleAll = async (): Promise<void> => {
 	const pokemons = await formatPokemonListData();
 	header(`All ${pokemonTextCaps}:`);
 	displayPokemonList(pokemons);
 };
 
-const handleRandom = async () => {
+const handleRandom = async (): Promise<void> => {
 	const data = await getRandomPokemon();
 	handleSinglePokemon(data, true);
 };
 
-const handlePokemonIdOrName = async (input: string) => {
+const handlePokemonIdOrName = async (input: string): Promise<undefined> => {
 	if (!input) {
 		return;
 	}
@@ -75,7 +75,7 @@ const handlePokemonIdOrName = async (input: string) => {
 	}
 };
 
-const handleSinglePokemon = async (data: ApiPokemon, random: boolean = false) => {
+const handleSinglePokemon = async (data: ApiPokemon, random: boolean = false): Promise<void> => {
 	const pokemon = formatPokemonData(data);
 	const headerText = random ? ` Random ${pokemonTextCaps}: ` : ` ${pokemonTextCaps}: `;
 	header(headerText);
