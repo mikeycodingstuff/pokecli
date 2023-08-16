@@ -1,15 +1,19 @@
 import { OptionValues } from 'commander';
-import { getRandomPokemon, getPokemonByName, getPokemonById } from '../api/api';
-import { pokemonTextCaps } from '../config/config';
+import {
+	getRandomPokemon,
+	getPokemonByName,
+	getPokemonById,
+} from '../api/api.js';
+import { pokemonTextCaps } from '../config/config.js';
 import {
 	displayPokemonList,
 	displayPokemon,
-} from '../helpers/display/displayPokemon';
-import { header } from '../helpers/display/headers';
-import { formatPokemonData } from '../helpers/formatting/formatApiData';
-import { formatPokemonListData } from '../helpers/formatting/formatPokemonData';
-import convertToNumberOrString from '../helpers/string/convertToNumberOrString';
-import { ApiPokemon } from '../types';
+} from '../helpers/display/displayPokemon.js';
+import { header } from '../helpers/display/headers.js';
+import { formatPokemonData } from '../helpers/formatting/formatApiData.js';
+import { formatPokemonListData } from '../helpers/formatting/formatPokemonData.js';
+import convertToNumberOrString from '../helpers/string/convertToNumberOrString.js';
+import { ApiPokemon } from '../types.js';
 
 const handleOptions = (options: OptionValues): void => {
 	if (options.all) {
