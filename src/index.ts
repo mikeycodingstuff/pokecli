@@ -1,23 +1,14 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import { header, mainHeader } from './helpers/display/headers.js';
-import { cliName, mainColor, pokemonTextCaps } from './config/config.js';
-import {
-	API_BASE_URL,
-	getPokemonById,
-	getPokemonByName,
-	getRandomPokemon,
-} from './api/api.js';
-import { formatPokemonListData } from './helpers/formatting/formatPokemonData.js';
-import { formatPokemonData } from './helpers/formatting/formatApiData.js';
-import {
-	displayPokemon,
-	displayPokemonList,
-} from './helpers/display/displayPokemon.js';
-import convertToNumberOrString from './helpers/string/convertToNumberOrString.js';
+import { mainHeader } from './helpers/display/headers.js';
+import { cliName, mainColor } from './config/config.js';
+import { API_BASE_URL } from './api/api.js';
 import chalk from 'chalk';
-import { ApiPokemon } from './types.js';
+import {
+	handlePokemonIdOrName,
+	handleOptions,
+} from './cliFunctions/handleInputs.js';
 
 const program = new Command();
 const options = program.opts();
@@ -45,56 +36,7 @@ const main = (): void => {
 		program.outputHelp();
 	}
 
-	if (options.all) {
-		handleAll();
-	}
-
-	if (options.random) {
-		handleRandom();
-	}
-};
-
-const handleAll = async (): Promise<void> => {
-	const pokemons = await formatPokemonListData();
-	header(`All ${pokemonTextCaps}:`);
-	displayPokemonList(pokemons);
-};
-
-const handleRandom = async (): Promise<void> => {
-	const data = await getRandomPokemon();
-	handleSinglePokemon(data, true);
-};
-
-const handlePokemonIdOrName = async (input: string): Promise<undefined> => {
-	if (!input) {
-		return;
-	}
-
-	const parsedInput = convertToNumberOrString(input);
-
-	if (typeof parsedInput === 'string') {
-		const name = parsedInput.toLowerCase();
-		const data = await getPokemonByName(name);
-		handleSinglePokemon(data);
-	}
-
-	if (typeof parsedInput === 'number') {
-		const id = parsedInput;
-		const data = await getPokemonById(id);
-		handleSinglePokemon(data);
-	}
-};
-
-const handleSinglePokemon = async (
-	data: ApiPokemon,
-	random: boolean = false,
-): Promise<void> => {
-	const pokemon = await formatPokemonData(data);
-	const headerText = random
-		? ` Random ${pokemonTextCaps}: `
-		: ` ${pokemonTextCaps}: `;
-	header(headerText);
-	displayPokemon(pokemon);
+	handleOptions(options);
 };
 
 main();
