@@ -33,7 +33,7 @@ const displayType = (type: string): string => {
 		color = '68a090';
 	}
 
-	return chalk.black.bgHex(color)(type.toUpperCase());
+	return chalk.black.bgHex(color)(` ${type.toUpperCase()} `);
 };
 
 const displayPokemon = (pokemon: Pokemon): void => {
