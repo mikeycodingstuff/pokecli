@@ -1,9 +1,5 @@
 import chalk from 'chalk';
-import {
-	mainColor,
-	cliNameHeader,
-	authorFormatted,
-} from '../../config/config.js';
+import { mainColor, cliNameHeader, authorFormatted } from '../../config/config';
 
 const mainHeader = `
   ${chalk.bgHex(mainColor)(cliNameHeader)}

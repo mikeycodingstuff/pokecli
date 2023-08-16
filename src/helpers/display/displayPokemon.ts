@@ -1,10 +1,10 @@
-import { Pokemon, PokemonType } from '../../types.js';
-import capitalise from '../string/capitalise.js';
+import { Pokemon, PokemonType } from '../../types';
+import capitalise from '../string/capitalise';
 import {
 	hectogramsToKilograms,
 	decimetersToMeters,
-} from '../number/conversions.js';
-import { typeColors } from '../../config/config.js';
+} from '../number/conversions';
+import { typeColors } from '../../config/config';
 import chalk from 'chalk';
 
 const displayPokemonList = (formattedNames: string[]): void => {

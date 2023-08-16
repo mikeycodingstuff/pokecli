@@ -1,12 +1,12 @@
-import { JsonParseError } from '../../api/errors.js';
+import { JsonParseError } from '../../api/errors';
 import {
 	ApiPokedexPokemonEntry,
 	Pokemon,
 	PokemonType,
 	ApiPokemonType,
 	ApiPokemon,
-} from '../../types.js';
-import chalkErrorMessage from '../display/chalkErrorMessage.js';
+} from '../../types';
+import chalkErrorMessage from '../display/chalkErrorMessage';
 
 const formatApiPokedexPokemonEntries = (
 	entries: ApiPokedexPokemonEntry[],

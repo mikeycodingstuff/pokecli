@@ -1,7 +1,7 @@
-import { getAllPokemons } from '../../api/api.js';
-import { ApiError } from '../../api/errors.js';
-import { formatApiPokedexPokemonEntries } from './formatApiData.js';
-import displayError from '../display/chalkErrorMessage.js';
+import { getAllPokemons } from '../../api/api';
+import { ApiError } from '../../api/errors';
+import { formatApiPokedexPokemonEntries } from './formatApiData';
+import displayError from '../display/chalkErrorMessage';
 
 const formatPokemonListData = async (): Promise<string[]> => {
 	try {
