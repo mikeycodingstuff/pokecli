@@ -29,11 +29,11 @@ const typeColors: Record<string, string> = {
 };
 
 export {
-	mainColor,
-	cliName,
-	cliNameHeader,
 	author,
 	authorFormatted,
+	cliName,
+	cliNameHeader,
+	mainColor,
 	pokemonText,
 	pokemonTextCaps,
 	typeColors,

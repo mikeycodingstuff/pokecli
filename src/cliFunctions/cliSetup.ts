@@ -1,7 +1,8 @@
 import chalk from 'chalk';
 import { Command } from 'commander';
+
 import { API_BASE_URL } from '../api/api.js';
-import { mainColor, cliName } from '../config/config.js';
+import { cliName, mainColor } from '../config/config.js';
 import { mainHeader } from '../helpers/display/headers.js';
 import { handlePokemonIdOrName } from './handleInputs.js';
 

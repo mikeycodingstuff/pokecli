@@ -1,13 +1,14 @@
 import { OptionValues } from 'commander';
+
 import {
-	getRandomPokemon,
-	getPokemonByName,
 	getPokemonById,
+	getPokemonByName,
+	getRandomPokemon,
 } from '../api/api.js';
 import { pokemonTextCaps } from '../config/config.js';
 import {
-	displayPokemonList,
 	displayPokemon,
+	displayPokemonList,
 } from '../helpers/display/displayPokemon.js';
 import { header } from '../helpers/display/headers.js';
 import { formatPokemonData } from '../helpers/formatting/formatApiData.js';

@@ -1,11 +1,12 @@
-import { Pokemon, PokemonType } from '../../types.js';
-import capitalise from '../string/capitalise.js';
-import {
-	hectogramsToKilograms,
-	decimetersToMeters,
-} from '../number/conversions.js';
-import { typeColors } from '../../config/config.js';
 import chalk from 'chalk';
+
+import { typeColors } from '../../config/config.js';
+import { Pokemon, PokemonType } from '../../types.js';
+import {
+	decimetersToMeters,
+	hectogramsToKilograms,
+} from '../number/conversions.js';
+import capitalise from '../string/capitalise.js';
 
 const displayPokemonList = (formattedNames: string[]): void => {
 	const terminalWidth = process.stdout.columns || 80;
@@ -55,4 +56,4 @@ const displayPokemon = (pokemon: Pokemon): void => {
 	console.log('');
 };
 
-export { displayPokemonList, displayPokemon };
+export { displayPokemon, displayPokemonList };

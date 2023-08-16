@@ -1,10 +1,10 @@
 import { JsonParseError } from '../../api/errors.js';
 import {
 	ApiPokedexPokemonEntry,
+	ApiPokemon,
+	ApiPokemonType,
 	Pokemon,
 	PokemonType,
-	ApiPokemonType,
-	ApiPokemon,
 } from '../../types.js';
 import chalkErrorMessage from '../display/chalkErrorMessage.js';
 

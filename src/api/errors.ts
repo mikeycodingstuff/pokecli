@@ -19,4 +19,4 @@ class JsonParseError extends ApiError {
 	}
 }
 
-export { ApiError, NetworkError, JsonParseError };
+export { ApiError, JsonParseError, NetworkError };

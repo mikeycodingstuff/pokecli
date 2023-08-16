@@ -10,4 +10,4 @@ const decimetersToMeters = (dmHeight: number): number => {
 	return parseFloat(mHeight.toFixed(2));
 };
 
-export { hectogramsToKilograms, decimetersToMeters };
+export { decimetersToMeters, hectogramsToKilograms };

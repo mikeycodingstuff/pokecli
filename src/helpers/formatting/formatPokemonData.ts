@@ -1,7 +1,7 @@
 import { getAllPokemons } from '../../api/api.js';
 import { ApiError } from '../../api/errors.js';
-import { formatApiPokedexPokemonEntries } from './formatApiData.js';
 import displayError from '../display/chalkErrorMessage.js';
+import { formatApiPokedexPokemonEntries } from './formatApiData.js';
 
 const formatPokemonListData = async (): Promise<string[]> => {
 	try {

@@ -1,8 +1,9 @@
 import chalk from 'chalk';
+
 import {
-	mainColor,
-	cliNameHeader,
 	authorFormatted,
+	cliNameHeader,
+	mainColor,
 } from '../../config/config.js';
 
 const mainHeader = `
@@ -15,4 +16,4 @@ const header = (text: string): void =>
   ${chalk.bgHex(mainColor)(text)}
 `);
 
-export { mainHeader, header };
+export { header, mainHeader };

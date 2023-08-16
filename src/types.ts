@@ -39,10 +39,10 @@ interface ApiPokemonType {
 }
 
 export {
-	Pokemon,
-	PokemonType,
 	ApiPokedexData,
 	ApiPokedexPokemonEntry,
 	ApiPokemon,
 	ApiPokemonType,
+	Pokemon,
+	PokemonType,
 };
