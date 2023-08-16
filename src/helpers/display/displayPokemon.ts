@@ -52,6 +52,7 @@ const displayPokemon = (pokemon: Pokemon): void => {
 	);
 	console.log(`  Weight: ${kgWeight}kg`);
 	console.log(`  Height: ${mHeight}m`);
+	console.log('');
 };
 
 export { displayPokemonList, displayPokemon };
