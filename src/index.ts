@@ -20,6 +20,7 @@ import chalk from 'chalk';
 import { ApiPokemon } from './types.js';
 
 const program = new Command();
+const options = program.opts();
 
 const description =
 	'A command line tool that shows pokemon info by consuming the pokemon API ' +
@@ -28,33 +29,28 @@ const description =
 const main = (): void => {
 	program
 		.name('pokemon')
-		.version(
-			`${cliName} 1.0.0`,
-			'-v, -V, --vers, --version',
-			'output the current version',
-		)
+		.version(`${cliName} 1.0.0`, '-v, --version', 'output the current version')
 		.description(description)
-		.addHelpText('before', mainHeader);
+		.addHelpText('before', mainHeader)
+		.option('-a, --all', 'list all pokemon')
+		.option('-r, --random', 'list stats for a random pokemon');
 
 	program
 		.argument('[id/name]', 'find a pokemon by its national pokedex id or name')
 		.action((idOrName) => handlePokemonIdOrName(idOrName));
 
-	program
-		.command('all')
-		.description('List all pokemon')
-		.action(() => handleAll());
-
-	program
-		.command('random')
-		.alias('rand')
-		.description('List stats for a random pokemon')
-		.action(() => handleRandom());
-
 	program.parse(process.argv);
 
 	if (!process.argv.slice(2).length) {
 		program.outputHelp();
+	}
+
+	if (options.all) {
+		handleAll();
+	}
+
+	if (options.random) {
+		handleRandom();
 	}
 };
 
