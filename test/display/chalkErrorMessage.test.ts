@@ -1,18 +1,28 @@
 // test/display/chalkErrorMessage.test.ts
 import chalkErrorMessage from '../../src/helpers/display/chalkErrorMessage';
 
-// Mocking chalk for testing
+// Mock chalk module
 jest.mock('chalk', () => ({
-	bgRed: (text: string): string => `mockedBgRed(${text})`,
+	bgRed: (text: string): string => `background red: ${text}`,
 }));
 
 describe('chalkErrorMessage', () => {
-	test('should return a chalk.bgRed formatted message', () => {
-		const inputMessage = 'Error message';
-		const expectedOutput = 'mockedBgRed(Error message)';
+	it('should apply background red using chalk.bgRed', () => {
+		const message = 'Error message';
+		const result = chalkErrorMessage(message);
+		expect(result).toBe('background red: Error message');
+	});
+});
 
-		const result = chalkErrorMessage(inputMessage);
+// Mock chalk module
+jest.mock('chalk', () => ({
+	bgRed: (text: string): string => `background red: ${text}`,
+}));
 
-		expect(result).toBe(expectedOutput);
+describe('chalkErrorMessage', () => {
+	it('should apply background red using chalk.bgRed', () => {
+		const message = 'Error message';
+		const result = chalkErrorMessage(message);
+		expect(result).toBe('background red: Error message');
 	});
 });
