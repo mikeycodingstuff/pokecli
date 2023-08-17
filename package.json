@@ -8,6 +8,7 @@
 	},
 	"scripts": {
 		"build": "npx tsc && npx prettier . --check && npx eslint . --ext .ts",
+		"start": "node dist/index.js",
 		"install-build": "npm i && npx tsc && npx prettier . --check && npx eslint . --ext .ts",
 		"prettier": "npx prettier . --write",
 		"lint": "npx eslint . --ext .ts",
