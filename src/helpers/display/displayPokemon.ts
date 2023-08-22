@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 
 import { typeColors } from '../../config/config.js';
-import { Pokemon, PokemonType } from '../../types.js';
+import type { Pokemon, PokemonType } from '../../types.js';
 import {
 	decimetersToMeters,
 	hectogramsToKilograms,
@@ -56,4 +56,4 @@ const displayPokemon = (pokemon: Pokemon): void => {
 	console.log('');
 };
 
-export { displayPokemon, displayPokemonList };
+export { displayPokemon, displayPokemonList, displayType };

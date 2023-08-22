@@ -14,7 +14,7 @@ import { header } from '../helpers/display/headers.js';
 import { formatPokemonData } from '../helpers/formatting/formatApiData.js';
 import { formatPokemonListData } from '../helpers/formatting/formatPokemonData.js';
 import convertToNumberOrString from '../helpers/string/convertToNumberOrString.js';
-import { ApiPokemon } from '../types.js';
+import type { ApiPokemon } from '../types.js';
 
 const handleOptions = (options: OptionValues): void => {
 	if (options.all) {

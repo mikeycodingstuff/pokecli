@@ -1,5 +1,5 @@
 import { JsonParseError } from '../../api/errors.js';
-import {
+import type {
 	ApiPokedexPokemonEntry,
 	ApiPokemon,
 	ApiPokemonType,

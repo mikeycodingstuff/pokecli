@@ -38,7 +38,7 @@ interface ApiPokemonType {
 	};
 }
 
-export {
+export type {
 	ApiPokedexData,
 	ApiPokedexPokemonEntry,
 	ApiPokemon,
