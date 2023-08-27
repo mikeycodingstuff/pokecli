@@ -3,6 +3,8 @@ import type {
 	ApiPokedexPokemonEntry,
 	ApiPokemon,
 	ApiPokemonType,
+	ApiTypeBasic,
+	ApiTypeData,
 	Pokemon,
 	PokemonType,
 } from '../../types.js';
@@ -58,4 +60,26 @@ const formatPokemonData = (data: ApiPokemon): Pokemon => {
 	}
 };
 
-export { formatApiPokedexPokemonEntries, formatPokemonData };
+const formatPokemonTypesData = (data: ApiTypeData): PokemonType[] => {
+	try {
+		return data.results.map((type: ApiTypeBasic): PokemonType => {
+			return {
+				name: type.name,
+			};
+		});
+	} catch (error) {
+		if (!(error instanceof JsonParseError)) {
+			console.error(chalkErrorMessage('An unexpected error occurred.'));
+		} else {
+			console.error(chalkErrorMessage(`${error.name} error:`), error.message);
+		}
+
+		process.exit(1);
+	}
+};
+
+export {
+	formatApiPokedexPokemonEntries,
+	formatPokemonData,
+	formatPokemonTypesData,
+};

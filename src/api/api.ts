@@ -1,6 +1,6 @@
 import chalkErrorMessage from '../helpers/display/chalkErrorMessage.js';
 import { getRandomId } from '../helpers/number/randomId.js';
-import type { ApiPokedexData, ApiPokemon } from '../types.js';
+import type { ApiPokedexData, ApiPokemon, ApiTypeData } from '../types.js';
 import { JsonParseError, NetworkError } from './errors.js';
 
 const API_BASE_URL = 'https://pokeapi.co/api/v2/';
@@ -109,10 +109,21 @@ const getPokemonById = async (id: number): Promise<ApiPokemon> => {
 	return await getSinglePokemonInfo(id);
 };
 
+const getPokemonTypes = async (): Promise<ApiTypeData> => {
+	const response = await fetchData('type');
+
+	try {
+		return await response.json();
+	} catch (error) {
+		throw new JsonParseError();
+	}
+};
+
 export {
 	API_BASE_URL,
 	getAllPokemons,
 	getPokemonById,
 	getPokemonByName,
+	getPokemonTypes,
 	getRandomPokemon,
 };

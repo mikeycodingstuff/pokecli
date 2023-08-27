@@ -7,7 +7,7 @@ interface Pokemon {
 }
 
 interface PokemonType {
-	slot: number;
+	slot?: number;
 	name: string;
 }
 
@@ -38,11 +38,22 @@ interface ApiPokemonType {
 	};
 }
 
+interface ApiTypeData {
+	results: ApiTypeBasic[];
+}
+
+interface ApiTypeBasic {
+	name: string;
+	url: string;
+}
+
 export type {
 	ApiPokedexData,
 	ApiPokedexPokemonEntry,
 	ApiPokemon,
 	ApiPokemonType,
+	ApiTypeBasic,
+	ApiTypeData,
 	Pokemon,
 	PokemonType,
 };

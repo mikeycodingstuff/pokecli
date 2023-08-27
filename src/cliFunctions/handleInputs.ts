@@ -3,54 +3,59 @@ import { OptionValues } from 'commander';
 import {
 	getPokemonById,
 	getPokemonByName,
+	getPokemonTypes,
 	getRandomPokemon,
 } from '../api/api.js';
-import { pokemonTextCaps } from '../config/config.js';
+import { pokemonTextCapitalised } from '../config/config.js';
 import {
 	displayPokemon,
 	displayPokemonList,
 } from '../helpers/display/displayPokemon.js';
+import { displayTypeList } from '../helpers/display/displayType.js';
 import { header } from '../helpers/display/headers.js';
-import { formatPokemonData } from '../helpers/formatting/formatApiData.js';
+import {
+	formatPokemonData,
+	formatPokemonTypesData,
+} from '../helpers/formatting/formatApiData.js';
 import { formatPokemonListData } from '../helpers/formatting/formatPokemonData.js';
 import convertToNumberOrString from '../helpers/string/convertToNumberOrString.js';
 import type { ApiPokemon } from '../types.js';
 
 const handleOptions = (options: OptionValues): void => {
 	if (options.all) {
-		handleAll();
+		handleAllPokemon();
 	}
 
 	if (options.random) {
-		handleRandom();
+		handleRandomPokemon();
 	}
 };
 
-const handleAll = async (): Promise<void> => {
+const handleAllPokemon = async (): Promise<void> => {
 	const pokemons = await formatPokemonListData();
-	header(`All ${pokemonTextCaps}:`);
+	header(`All ${pokemonTextCapitalised}:`);
 	displayPokemonList(pokemons);
 };
 
-const handleRandom = async (): Promise<void> => {
+const handleRandomPokemon = async (): Promise<void> => {
 	const data = await getRandomPokemon();
 	handleSinglePokemon(data, true);
 };
 
-const handleSinglePokemon = async (
+const handleSinglePokemon = (
 	data: ApiPokemon,
 	random: boolean = false,
-): Promise<void> => {
-	const pokemon = await formatPokemonData(data);
+): void => {
+	const pokemon = formatPokemonData(data);
 	const headerText = random
-		? ` Random ${pokemonTextCaps}: `
-		: ` ${pokemonTextCaps}: `;
+		? ` Random ${pokemonTextCapitalised}: `
+		: ` ${pokemonTextCapitalised}: `;
 	header(headerText);
 	displayPokemon(pokemon);
 };
 
 const handlePokemonIdOrName = async (input: string): Promise<undefined> => {
-	if (!input) {
+	if (!input || input === 'help') {
 		return;
 	}
 
@@ -69,4 +74,18 @@ const handlePokemonIdOrName = async (input: string): Promise<undefined> => {
 	}
 };
 
-export { handleOptions, handlePokemonIdOrName };
+const handleTypeCommand = (input: string): void => {
+	if (input == 'all') {
+		handleAllTypes();
+	}
+};
+
+const handleAllTypes = async (): Promise<void> => {
+	const data = await getPokemonTypes();
+	const types = formatPokemonTypesData(data);
+
+	header(`All ${pokemonTextCapitalised} Types:`);
+	displayTypeList(types);
+};
+
+export { handleOptions, handlePokemonIdOrName, handleTypeCommand };
