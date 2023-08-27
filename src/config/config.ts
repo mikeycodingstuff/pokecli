@@ -1,12 +1,12 @@
 import capitalise from '../helpers/string/capitalise.js';
 
-const mainColor = '#7b62ac';
+const mainColor = '#7B62AC';
 const cliName = 'pokemon-cli';
 const cliNameHeader = 'pok\u00E9mon cli'.toUpperCase();
 const author = 'mikey';
 const authorFormatted = capitalise(author);
 const pokemonText = 'pok\u00E9mon';
-const pokemonTextCaps = capitalise(pokemonText);
+const pokemonTextCapitalised = capitalise(pokemonText);
 const typeColors: Record<string, string> = {
 	normal: '#A8A878',
 	fire: '#F08030',
@@ -35,6 +35,6 @@ export {
 	cliNameHeader,
 	mainColor,
 	pokemonText,
-	pokemonTextCaps,
+	pokemonTextCapitalised,
 	typeColors,
 };
