@@ -7,13 +7,13 @@ import {
 } from '../../config/config.js';
 
 const mainHeader = `
-  ${chalk.bgHex(mainColor)(cliNameHeader)}
+  ${chalk.whiteBright.bgHex(mainColor)(cliNameHeader)}
   by ${chalk.hex(mainColor)(authorFormatted)}
 `;
 
 const header = (text: string): void =>
 	console.log(`
-  ${chalk.bgHex(mainColor)(text)}
+  ${chalk.whiteBright.bgHex(mainColor)(text)}
 `);
 
 export { header, mainHeader };
