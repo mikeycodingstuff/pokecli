@@ -1,6 +1,9 @@
 <?php
 
 return [
+	'app' => [
+		'mainColor' => '#7B62AC',
+	],
 	'types' => [
 		'normal' => '#A8A878',
 		'fire' => '#F08030',
