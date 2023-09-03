@@ -2,10 +2,10 @@
 
 namespace App\Commands;
 
+use App\Helpers\ViewHelper;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Validator;
 use LaravelZero\Framework\Commands\Command;
-use App\Helpers\ViewHelper;
 
 use function Termwind\{render};
 
