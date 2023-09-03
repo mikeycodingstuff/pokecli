@@ -7,21 +7,21 @@ use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
 use function Termwind\{render};
 
-class Info extends Command
+class Welcome extends Command
 {
     /**
      * The signature of the command.
      *
      * @var string
      */
-    protected $signature = 'info';
+    protected $signature = 'welcome';
 
     /**
      * The description of the command.
      *
      * @var string
      */
-    protected $description = 'Get Pokemon info';
+    protected $description = 'Print welcome';
 
     /**
      * Execute the console command.
@@ -35,7 +35,7 @@ class Info extends Command
 
         StyleManager::applyStyleBg($mainColor, $bgColor = 'bgColor', 'indigo-400');
 
-        $view = view('title', ['title' => $pokemonAccented, 'bgColor' => $bgColor]);
+        $view = view('welcome', ['title' => $pokemonAccented, 'bgColor' => $bgColor]);
         render(strval($view));
     }
 
