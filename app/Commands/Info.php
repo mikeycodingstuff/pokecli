@@ -2,10 +2,10 @@
 
 namespace App\Commands;
 
+use App\Services\StyleManager;
 use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
 use function Termwind\{render};
-use function Termwind\{style};
 
 class Info extends Command
 {
@@ -31,15 +31,12 @@ class Info extends Command
     public function handle()
     {
         $pokemonAccented = config('names.accented_pokemon_string');
-
         $mainColor = config('colors.app.mainColor');
 
-        style('indigo-400')->color($mainColor);
-        style('main')->apply('m-1 bg-indigo-400');
+        StyleManager::applyStyleBg($mainColor, $bgColor = 'bgColor', 'indigo-400');
 
-        $outputString = '<div class="main">' .  ucfirst($pokemonAccented). ' </div>';
-
-        render($outputString);
+        $view = view('title', ['title' => $pokemonAccented, 'bgColor' => $bgColor]);
+        render(strval($view));
     }
 
     /**
