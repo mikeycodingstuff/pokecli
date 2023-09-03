@@ -43,7 +43,7 @@ class ApiService
     private static function getHighestPokemonId()
     {
         $base_url = config('api.urls.base_url');
-        $url = $base_url."pokedex/1";
+        $url = $base_url.'pokedex/1';
 
         $response = Http::get($url);
 
@@ -51,7 +51,7 @@ class ApiService
             $data = $response->json();
 
             $lastEntry = $data['pokemon_entries'][count($data['pokemon_entries']) - 1];
-            
+
             return $lastEntry['entry_number'];
         } catch (Exception $e) {
 
