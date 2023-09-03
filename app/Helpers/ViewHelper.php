@@ -13,8 +13,8 @@ class ViewHelper
         return render(strval($view));
     }
 
-    public static function renderErrorView($errors)
+    public static function renderValidationErrorView($errors)
     {
-        return static::renderView('error', ['errors' => $errors]);
+        return static::renderView('validationError', ['errors' => $errors]);
     }
 }

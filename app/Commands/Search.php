@@ -41,7 +41,7 @@ class Search extends Command
         $validator = $this->validationService->validatePokemonQuery($query);
 
         if ($validator->fails()) {
-            ViewHelper::renderErrorView($validator->errors());
+            ViewHelper::renderValidationErrorView($validator->errors());
 
             return self::INVALID;
         }
