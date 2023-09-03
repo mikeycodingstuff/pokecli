@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use Exception;
 use Illuminate\Support\Facades\Http;
 
 class ApiService
@@ -15,6 +16,13 @@ class ApiService
 
     public function getPokemonById(int $id)
     {
+        return static::getSinglePokemon($id);
+    }
+
+    public static function getRandomPokemon()
+    {
+        $id = static::getHighestPokemonId();
+
         return static::getSinglePokemon($id);
     }
 

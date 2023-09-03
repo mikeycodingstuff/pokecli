@@ -37,4 +37,9 @@ class PokemonController
     {
         return $this->ApiService->getPokemonById($id);
     }
+
+    public function getRandomPokemon()
+    {
+        return $this->ApiService->getRandomPokemon();
+    }
 }
