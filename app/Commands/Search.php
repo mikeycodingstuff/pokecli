@@ -19,13 +19,24 @@ class Search extends Command
         parent::__construct();
     }
 
-    protected $signature = 'search {query : The Pokémon name or ID}';
+    protected $signature = 'search {query? : The Pokémon name or ID} {--r|random : Get a random Pokémon}';
 
     protected $description = 'Search for info on a Pokémon';
 
     public function handle()
     {
         $query = $this->argument('query');
+        $random = $this->option('random');
+
+        if (! $query && ! $random) {
+            $this->error('Please provide a Pokémon name or ID, or use the --random or -r option to get a random Pokémon.');
+
+            return self::INVALID;
+        }
+
+        if ($random) {
+            $query = $this->pokemonController->getRandomPokemonId();
+        }
 
         $validator = $this->validationService->validatePokemonQuery($query);
 

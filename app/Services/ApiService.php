@@ -19,11 +19,11 @@ class ApiService
         return static::getSinglePokemon($id);
     }
 
-    public static function getRandomPokemon()
+    public static function getRandomPokemonId()
     {
-        $id = static::getHighestPokemonId();
+        $max = static::getHighestPokemonId();
 
-        return static::getSinglePokemon($id);
+        return random_int(0, $max);
     }
 
     private static function getSinglePokemon(string|int $query)
