@@ -2,15 +2,19 @@
 
 namespace App\Helpers;
 
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-
 use function Termwind\{render};
 
 class ViewHelper
 {
-    public static function render(View|Factory $view)
+    public static function renderView(string $template, array $props)
     {
+        $view = view($template, $props);
+
         return render(strval($view));
+    }
+
+    public static function renderErrorView($errors)
+    {
+        return static::renderView('error', ['errors' => $errors]);
     }
 }

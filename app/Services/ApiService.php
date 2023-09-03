@@ -6,7 +6,7 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
 
-class PokemonService
+class ApiService
 {
     public function getPokemonByName(string $name)
     {

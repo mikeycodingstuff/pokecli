@@ -4,33 +4,37 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use App\Services\PokemonService;
+use App\Services\ApiService;
 
 class PokemonController
 {
-    protected $pokemonService;
+    protected $ApiService;
 
-    public function __construct(PokemonService $pokemonService)
+    public function __construct(ApiService $ApiService)
     {
-        $this->pokemonService = $pokemonService;
+        $this->ApiService = $ApiService;
     }
 
     public function getPokemonByNameOrId(string|int $nameOrId)
     {
         if (is_numeric($nameOrId)) {
-            return $this->getPokemonById($nameOrId);
+            $id = intval($nameOrId);
+
+            return $this->getPokemonById($id);
         } else {
-            return $this->getPokemonByName($nameOrId);
+            $name = strval($nameOrId);
+
+            return $this->getPokemonByName($name);
         }
     }
 
     public function getPokemonByName(string $name)
     {
-        return $this->pokemonService->getPokemonByName($name);
+        return $this->ApiService->getPokemonByName($name);
     }
 
     public function getPokemonById(int $id)
     {
-        return $this->pokemonService->getPokemonById($id);
+        return $this->ApiService->getPokemonById($id);
     }
 }

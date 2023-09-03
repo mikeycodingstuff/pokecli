@@ -4,7 +4,7 @@ namespace App\Commands;
 
 use App\Controllers\PokemonController;
 use App\Helpers\ViewHelper;
-use Illuminate\Support\Facades\Validator;
+use App\Services\ValidationService;
 use LaravelZero\Framework\Commands\Command;
 
 class Search extends Command
@@ -13,18 +13,14 @@ class Search extends Command
 
     protected $description = 'Search for info on a Pokémon';
 
-    public function handle(PokemonController $pokemonController)
+    public function handle(PokemonController $pokemonController, ValidationService $validationService)
     {
         $query = $this->argument('query');
 
-        $rules = ['query' => 'required|alpha_num'];
-
-        $validator = Validator::make(['query' => $query], $rules);
+        $validator = $validationService->validatePokemonQuery($query);
 
         if ($validator->fails()) {
-            $errors = $validator->errors();
-
-            ViewHelper::render(view('error', ['errors' => $errors]));
+            ViewHelper::renderErrorView($validator->errors());
 
             return 1;
         }
