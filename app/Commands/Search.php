@@ -2,6 +2,7 @@
 
 namespace App\Commands;
 
+use App\Controllers\PokemonController;
 use App\Helpers\ViewHelper;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Validator;
@@ -30,7 +31,7 @@ class Search extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(PokemonController $pokemonController)
     {
         $query = $this->argument('query');
 
@@ -41,17 +42,19 @@ class Search extends Command
         if ($validator->fails()) {
             $errors = $validator->errors();
 
-            // $this->line('');
-            // $this->error("Error:");
-            // $this->line($errors->first('query') . "\n");
-
-            // $message = sprintf(
-            //     "\n  <error>Error:</>\n  <fg=white>%s</>\n",
-            //     trim($errors->first('query')),
-            // );
-            // $this->comment($message);
-
             ViewHelper::render(view('error', ['errors' => $errors]));
+
+            return 1;
+        }
+
+        $pokemonData = $pokemonController->getPokemonByNameOrId($query);
+
+        if ($pokemonData) {
+            $this->info(json_encode($pokemonData, JSON_PRETTY_PRINT));
+
+            return 0;
+        } else {
+            $this->error('Pokémon not found.');
 
             return 1;
         }

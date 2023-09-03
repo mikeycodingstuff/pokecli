@@ -17,7 +17,11 @@ class PokemonController
 
     public function getPokemonByNameOrId(string|int $nameOrId)
     {
-        return $this->getPokemonByName($nameOrId);
+        if (is_numeric($nameOrId)) {
+            return $this->getPokemonById($nameOrId);
+        } else {
+            return $this->getPokemonByName($nameOrId);
+        }
     }
 
     public function getPokemonByName(string $name)
