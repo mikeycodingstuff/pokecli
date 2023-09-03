@@ -1,27 +1,95 @@
 <?php
 
+/*
+ * Each color is associated with a tailwind class that it should replace
+ */
 return [
     'app' => [
-        'mainColor' => '#7B62AC',
+        'mainColor' => [
+            'hex' => '#7B62AC',
+            'replace' => 'indigo-400',
+        ],
     ],
     'types' => [
-        'normal' => '#A8A878',
-        'fire' => '#F08030',
-        'water' => '#6890F0',
-        'electric' => '#F8D030',
-        'grass' => '#78C850',
-        'ice' => '#98D8D8',
-        'fighting' => '#C03028',
-        'poison' => '#A040A0',
-        'ground' => '#E0C068',
-        'flying' => '#A890F0',
-        'psychic' => '#F85888',
-        'bug' => '#A8B820',
-        'rock' => '#B8A038',
-        'ghost' => '#705898',
-        'dragon' => '#7038F8',
-        'dark' => '#705848',
-        'steel' => '#B8B8D0',
-        'fairy' => '#EE99AC',
+        'normal' => [
+            'hex' => '#A8A878',
+            'replace' => 'yellow-100',
+        ],
+        'fire' => [
+            'hex' => '#F08030',
+            'replace' => 'orange-400',
+        ],
+        'water' => [
+            'hex' => '#6890F0',
+            'replace' => 'blue-300',
+        ],
+        'electric' => [
+            'hex' => '#F8D030',
+            'replace' => 'yellow-300',
+        ],
+        'grass' => [
+            'hex' => '#78C850',
+            'replace' => 'green-300',
+        ],
+        'ice' => [
+            'hex' => '#98D8D8',
+            'replace' => 'teal-100',
+        ],
+        'fighting' => [
+            'hex' => '#C03028',
+            'replace' => 'red-700',
+        ],
+        'poison' => [
+            'hex' => '#A040A0',
+            'replace' => 'fuchsia-500',
+        ],
+        'ground' => [
+            'hex' => '#E0C068',
+            'replace' => 'amber-200',
+        ],
+        'flying' => [
+            'hex' => '#A890F0',
+            'replace' => 'violet-400',
+        ],
+        'psychic' => [
+            'hex' => '#F85888',
+            'replace' => 'pink-400',
+        ],
+        'bug' => [
+            'hex' => '#A8B820',
+            'replace' => 'lime-400',
+        ],
+        'rock' => [
+            'hex' => '#B8A038',
+            'replace' => 'amber-300',
+        ],
+        'ghost' => [
+            'hex' => '#705898',
+            'replace' => 'indigo-500',
+        ],
+        'dragon' => [
+            'hex' => '#7038F8',
+            'replace' => 'indigo-600',
+        ],
+        'dark' => [
+            'hex' => '#705848',
+            'replace' => 'yellow-900',
+        ],
+        'steel' => [
+            'hex' => '#B8B8D0',
+            'replace' => 'indigo-50',
+        ],
+        'fairy' => [
+            'hex' => '#EE99AC',
+            'replace' => 'rose-200',
+        ],
+        'unknown' => [
+            'hex' => '#68A090',
+            'replace' => 'emerald-600',
+        ],
+        'shadow' => [
+            'hex' => '#68A090',
+            'replace' => 'emerald-500',
+        ],
     ],
 ];
