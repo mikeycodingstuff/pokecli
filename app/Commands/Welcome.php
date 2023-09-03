@@ -7,8 +7,6 @@ use App\Services\StyleManager;
 use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
 
-use function Termwind\{render};
-
 class Welcome extends Command
 {
     /**
@@ -32,9 +30,10 @@ class Welcome extends Command
      */
     public function handle()
     {
-        $mainColor = config('colors.app.mainColor');
+        $mainColor = config('colors.app.mainColor.hex');
+        $replaceColorClass = config('colors.app.mainColor.replace');
 
-        StyleManager::applyStyleBg($mainColor, $bgColor = 'bgColor', 'indigo-400');
+        StyleManager::applyStyleBg($mainColor, $bgColor = 'bgColor', $replaceColorClass);
 
         ViewHelper::renderView('welcome', ['bgColor' => $bgColor]);
 

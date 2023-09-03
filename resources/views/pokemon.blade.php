@@ -1,7 +1,9 @@
-@props(['styles', 'data'])
+@props(['styles', 'data', 'typeColors'])
 
 <div class="m-1">
-    <x-header :bgColor="$styles['bgColor']" title="Pokémon"></x-header>
+    <div class="mb-1">
+        <x-header :bgColor="$styles['bgColor']" title="Pokémon:"></x-header>
+    </div>
     <div>
         <b>id:</b> {{ $data['id'] }}
     </div>
@@ -9,11 +11,13 @@
         <b>name:</b> {{ $data['name'] }}
     </div>
     <div>
-        <div>types:</div>
-        @foreach ($data['types'] as $type)
-            <div>slot: {{ $type['slot'] }}</div>
-            <div>{{ $type['type']['name'] }}</div>
+        <b>types:</b>
+        @foreach ($data['types'] as $index => $type)
+            @php
+                $typeName = $type['type']['name'];
+                $typeColorClass = $typeColors[$typeName]['replace'];
+            @endphp
+            <span class="text-{{ $typeColorClass }}">{{ $typeName }}</span>,
         @endforeach
     </div>
 </div>
-<div>test</div>

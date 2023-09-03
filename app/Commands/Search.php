@@ -40,11 +40,21 @@ class Search extends Command
         if ($responseData) {
             $pokemonData = $this->formatDataService->formatData($responseData);
 
-            $mainColor = config('colors.app.mainColor');
+            $mainColor = config('colors.app.mainColor.hex');
+            $replaceColorClass = config('colors.app.mainColor.replace');
 
-            StyleManager::applyStyleBg($mainColor, $bgColor = 'bgColor', 'indigo-400');
+            StyleManager::applyStyleBg($mainColor, $bgColor = 'bgColor', $replaceColorClass);
 
-            ViewHelper::renderView('pokemon', ['styles' => ['bgColor' => $bgColor], 'data' => $pokemonData]);
+            $typeColors = [];
+            foreach ($pokemonData['types'] as $type) {
+                $typeName = $type['type']['name'];
+                $replaceColorClass = config('colors.types.'.$typeName.'.replace');
+                $newColor = config('colors.types.'.$typeName.'.hex');
+                $typeColors[$typeName] = ['replace' => $replaceColorClass, 'newClassName' => $typeName];
+                StyleManager::setColor($newColor, $replaceColorClass);
+            }
+
+            ViewHelper::renderView('pokemon', ['styles' => ['bgColor' => $bgColor], 'data' => $pokemonData, 'typeColors' => $typeColors]);
 
             return self::SUCCESS;
         } else {
