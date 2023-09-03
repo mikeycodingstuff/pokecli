@@ -31,12 +31,12 @@ class Welcome extends Command
      */
     public function handle()
     {
-        $pokemonAccented = config('names.accented_pokemon_string');
         $mainColor = config('colors.app.mainColor');
 
         StyleManager::applyStyleBg($mainColor, $bgColor = 'bgColor', 'indigo-400');
 
-        $view = view('welcome', ['title' => $pokemonAccented, 'bgColor' => $bgColor]);
+        $view = view('welcome', ['bgColor' => $bgColor]);
+
         render(strval($view));
     }
 
