@@ -12,14 +12,12 @@
     </div>
     <div>
         <b>types:</b><span> </span>
-        @php
-            $formattedTypes = [];
-            foreach ($data['types'] as $type) {
+        @foreach ($data['types'] as $type)
+            @php
                 $typeName = $type['type']['name'];
                 $typeColorClass = $typeColors[$typeName]['replace'];
-                $formattedTypes[] = "<span class='text-$typeColorClass'>$typeName</span>";
-            }
-            echo implode(', ', $formattedTypes);
-        @endphp
+            @endphp
+            <span class='text-{{ $typeColorClass }}'>{{ $typeName }}</span>@unless($loop->last),@endunless
+        @endforeach
     </div>
 </div>
