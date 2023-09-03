@@ -18,6 +18,7 @@ return [
         'make:*',
         'app:*',
         'list',
+        'test',
     ],
 
     /*
