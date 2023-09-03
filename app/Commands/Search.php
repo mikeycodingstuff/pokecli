@@ -5,6 +5,7 @@ namespace App\Commands;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Validator;
 use LaravelZero\Framework\Commands\Command;
+use App\Helpers\ViewHelper;
 
 use function Termwind\{render};
 
@@ -50,9 +51,7 @@ class Search extends Command
             // );
             // $this->comment($message);
 
-            $view = view('error', ['errors' => $errors]);
-
-            render(strval($view));
+            ViewHelper::render(view('error', ['errors' => $errors]));
 
             return 1;
         }

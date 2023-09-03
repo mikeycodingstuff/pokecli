@@ -2,6 +2,7 @@
 
 namespace App\Commands;
 
+use App\Helpers\ViewHelper;
 use App\Services\StyleManager;
 use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
@@ -35,9 +36,7 @@ class Welcome extends Command
 
         StyleManager::applyStyleBg($mainColor, $bgColor = 'bgColor', 'indigo-400');
 
-        $view = view('welcome', ['bgColor' => $bgColor]);
-
-        render(strval($view));
+        ViewHelper::render(view('welcome', ['bgColor' => $bgColor]));
     }
 
     /**
