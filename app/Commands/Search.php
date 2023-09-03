@@ -4,8 +4,6 @@ namespace App\Commands;
 
 use App\Controllers\PokemonController;
 use App\Helpers\ViewHelper;
-use App\Services\FormatDataService;
-use App\Services\StyleManager;
 use App\Services\ValidationService;
 use LaravelZero\Framework\Commands\Command;
 
@@ -13,8 +11,7 @@ class Search extends Command
 {
     public function __construct(
         protected PokemonController $pokemonController,
-        protected ValidationService $validationService,
-        protected FormatDataService $formatDataService
+        protected ValidationService $validationService
     ) {
         parent::__construct();
     }
@@ -49,23 +46,7 @@ class Search extends Command
         $responseData = $this->pokemonController->getPokemonByNameOrId($query);
 
         if ($responseData) {
-            $pokemonData = $this->formatDataService->formatData($responseData);
-
-            $mainColor = config('colors.app.mainColor.hex');
-            $replaceColorClass = config('colors.app.mainColor.replace');
-
-            StyleManager::applyStyleBg($mainColor, $bgColor = 'bgColor', $replaceColorClass);
-
-            $typeColors = [];
-            foreach ($pokemonData['types'] as $type) {
-                $typeName = $type['type']['name'];
-                $replaceColorClass = config('colors.types.'.$typeName.'.replace');
-                $newColor = config('colors.types.'.$typeName.'.hex');
-                $typeColors[$typeName] = ['replace' => $replaceColorClass, 'newClassName' => $typeName];
-                StyleManager::setColor($newColor, $replaceColorClass);
-            }
-
-            ViewHelper::renderView('pokemon', ['styles' => ['bgColor' => $bgColor], 'data' => $pokemonData, 'typeColors' => $typeColors]);
+            ViewHelper::renderPokemonView($responseData);
 
             return self::SUCCESS;
         } else {

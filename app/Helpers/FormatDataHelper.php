@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services;
+namespace App\Helpers;
 
-class FormatDataService
+class FormatDataHelper
 {
-    public function formatData($data): array
+    public static function formatPokemonData($data): array
     {
         return [
             'id' => $data['id'],

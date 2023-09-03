@@ -26,13 +26,15 @@ class StyleManager
      * @param  string  $newClassName e.g. bgColor
      * @param  string  $twColorToUpdate e.g. 'green-500'
      * @param  string  $twClassPrefix e.g. 'bg'
-     * @return void
+     * @return string  $newClassName returns the new class name to be used in tw
      */
-    public static function applyStyle(string $color, string $newClassName, string $twColorToUpdate, string $twClassPrefix)
+    public static function applyStyle(string $color, string $newClassName, string $twColorToUpdate, string $twClassPrefix): string
     {
         static::setColor($color, $twColorToUpdate);
 
         style($newClassName)->apply("$twClassPrefix-$twColorToUpdate");
+
+        return $newClassName;
     }
 
     /**
@@ -41,11 +43,11 @@ class StyleManager
      * @param  string  $color e.g. '#7B62AC'
      * @param  string  $newClassName e.g. bgColor
      * @param  string  $twColorToUpdate e.g. 'green-500'
-     * @return void
+     * @return string  $newClassName returns the new class name to be used in tw
      */
-    public static function applyStyleBg(string $color, string $newClassName, string $twColorToUpdate)
+    public static function applyStyleBg(string $color, string $newClassName, string $twColorToUpdate): string
     {
-        static::applyStyle($color, $newClassName, $twColorToUpdate, 'bg');
+        return static::applyStyle($color, $newClassName, $twColorToUpdate, 'bg');
     }
 
     /**
@@ -54,10 +56,10 @@ class StyleManager
      * @param  string  $color e.g. '#7B62AC'
      * @param  string  $newClassName e.g. textColor
      * @param  string  $twColorToUpdate e.g. 'green-500'
-     * @return void
+     * @return string  $newClassName returns the new class name to be used in tw
      */
-    public static function applyStyleText(string $color, string $newClassName, string $twColorToUpdate)
+    public static function applyStyleText(string $color, string $newClassName, string $twColorToUpdate): string
     {
-        static::applyStyle($color, $newClassName, $twColorToUpdate, 'text');
+        return static::applyStyle($color, $newClassName, $twColorToUpdate, 'text');
     }
 }
