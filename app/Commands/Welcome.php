@@ -37,6 +37,8 @@ class Welcome extends Command
         StyleManager::applyStyleBg($mainColor, $bgColor = 'bgColor', 'indigo-400');
 
         ViewHelper::renderView('welcome', ['bgColor' => $bgColor]);
+
+        return self::SUCCESS;
     }
 
     /**

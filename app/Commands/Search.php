@@ -31,7 +31,7 @@ class Search extends Command
         if ($validator->fails()) {
             ViewHelper::renderErrorView($validator->errors());
 
-            return 1;
+            return self::INVALID;
         }
 
         $responseData = $this->pokemonController->getPokemonByNameOrId($query);
@@ -41,11 +41,11 @@ class Search extends Command
 
             ViewHelper::renderView('pokemon', $pokemonData);
 
-            return 0;
+            return self::SUCCESS;
         } else {
             $this->error('Pokémon not found.');
 
-            return 1;
+            return self::FAILURE;
         }
     }
 }
