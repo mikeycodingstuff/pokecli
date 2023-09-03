@@ -11,13 +11,15 @@
         <b>name:</b> {{ $data['name'] }}
     </div>
     <div>
-        <b>types:</b>
-        @foreach ($data['types'] as $index => $type)
-            @php
+        <b>types:</b><span> </span>
+        @php
+            $formattedTypes = [];
+            foreach ($data['types'] as $type) {
                 $typeName = $type['type']['name'];
                 $typeColorClass = $typeColors[$typeName]['replace'];
-            @endphp
-            <span class="text-{{ $typeColorClass }}">{{ $typeName }}</span>,
-        @endforeach
+                $formattedTypes[] = "<span class='text-$typeColorClass'>$typeName</span>";
+            }
+            echo implode(', ', $formattedTypes);
+        @endphp
     </div>
 </div>
