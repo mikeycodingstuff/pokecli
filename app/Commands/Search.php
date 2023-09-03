@@ -6,6 +6,8 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Validator;
 use LaravelZero\Framework\Commands\Command;
 
+use function Termwind\{render};
+
 class Search extends Command
 {
     /**
@@ -38,10 +40,20 @@ class Search extends Command
         if ($validator->fails()) {
             $errors = $validator->errors();
 
-            $this->line('');
-            $this->error("Error:");
-            $this->line($errors->first('query') . "\n");
-    
+            // $this->line('');
+            // $this->error("Error:");
+            // $this->line($errors->first('query') . "\n");
+
+            // $message = sprintf(
+            //     "\n  <error>Error:</>\n  <fg=white>%s</>\n",
+            //     trim($errors->first('query')),
+            // );
+            // $this->comment($message);
+
+            $view = view('error', ['errors' => $errors]);
+
+            render(strval($view));
+
             return 1;
         }
     }
