@@ -17,7 +17,7 @@ return [
     'hide' => [
         'make:*',
         'app:*',
-        'list'
+        'list',
     ],
 
     /*
