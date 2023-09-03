@@ -5,6 +5,7 @@ namespace App\Commands;
 use App\Services\StyleManager;
 use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
+
 use function Termwind\{render};
 
 class Welcome extends Command
@@ -41,9 +42,6 @@ class Welcome extends Command
 
     /**
      * Define the command's schedule.
-     *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
-     * @return void
      */
     public function schedule(Schedule $schedule): void
     {
