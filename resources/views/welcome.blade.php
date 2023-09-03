@@ -1,3 +1,5 @@
 @props(['bgColor'])
 
-<div class="{{ $bgColor }} m-1">Welcome to the Pokémon CLI!</div>
+<div class="m-1">
+    <x-header :bgColor="$bgColor" title="Welcome to the Pokémon CLI!"></x-header>
+</div>

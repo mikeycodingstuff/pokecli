@@ -1,3 +1,3 @@
-@props(['bgColor'])
+@props(['bgColor', 'title'])
 
-<div class="{{ $bgColor }}">Pokémon</div>
+<div class="{{ $bgColor }}">{{ $title }}</div>

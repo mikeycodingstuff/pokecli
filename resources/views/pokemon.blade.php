@@ -1,11 +1,19 @@
-@props(['id', 'name', 'types'])
+@props(['styles', 'data'])
 
 <div class="m-1">
-    <p>{{ $id }}</p>
-    <p>{{ $name }}</p>
-    @foreach ($types as $type)
-        <p>{{ $type['slot'] }}</p>
-        <p>{{ $type['type']['name'] }}</p>
-    @endforeach
+    <x-header :bgColor="$styles['bgColor']" title="Pokémon"></x-header>
+    <div>
+        <b>id:</b> {{ $data['id'] }}
+    </div>
+    <div>
+        <b>name:</b> {{ $data['name'] }}
+    </div>
+    <div>
+        <div>types:</div>
+        @foreach ($data['types'] as $type)
+            <div>slot: {{ $type['slot'] }}</div>
+            <div>{{ $type['type']['name'] }}</div>
+        @endforeach
+    </div>
 </div>
 <div>test</div>
