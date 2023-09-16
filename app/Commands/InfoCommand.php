@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Commands;
 
+use Exception;
 use Illuminate\Support\Facades\Http;
 use LaravelZero\Framework\Commands\Command;
 
@@ -40,17 +41,17 @@ class InfoCommand extends Command
             'types' => $data['types'],
         ];
 
-        render(
-            strval(
-                view('pokemon', [
-                    'title' => 'Pokémon Info:',
-                    'pokemon' => $pokemon,
-                ])
-            )
-        );
+        $view = view('pokemon', [
+            'title' => 'Pokémon Info:',
+            'pokemon' => $pokemon,
+        ]);
+
+        render(strval($view));
+
+        return self::SUCCESS;
     }
 
-    public function getRandomPokemonId()
+    public function getRandomPokemonId(): int
     {
         $max = static::getHighestPokemonId();
 
