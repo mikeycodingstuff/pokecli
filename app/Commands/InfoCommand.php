@@ -80,11 +80,11 @@ class InfoCommand extends Command
 
     public static function hectogramToKilogram(float $HgWeight): float
     {
-        return $HgWeight * 0.1;
+        return round($HgWeight * 0.1, 2);
     }
 
     public static function decimetreToMetre(float $DmHeight): float
     {
-        return $DmHeight * 0.1;
+        return round($DmHeight * 0.1, 2);
     }
 }
