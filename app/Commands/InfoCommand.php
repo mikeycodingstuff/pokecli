@@ -20,10 +20,14 @@ class InfoCommand extends Command
         $query = $this->argument('query');
         $random = $this->option('random');
 
-        if (!$query && !$random) {
+        if (! $query && ! $random) {
             $this->error('Please provide a Pokémon name or ID, or use the --random or -r option to get a random Pokémon.');
 
             return self::INVALID;
+        }
+
+        if ($random) {
+            $query = $this->getRandomPokemonId();
         }
 
         $baseUrl = config('api.urls.base_url');
@@ -33,7 +37,7 @@ class InfoCommand extends Command
         $pokemon = [
             'name' => $data['name'],
             'id' => $data['id'],
-            'types' => $data['types']
+            'types' => $data['types'],
         ];
 
         render(
@@ -44,5 +48,30 @@ class InfoCommand extends Command
                 ])
             )
         );
+    }
+
+    public function getRandomPokemonId()
+    {
+        $max = static::getHighestPokemonId();
+
+        return random_int(0, $max);
+    }
+
+    private static function getHighestPokemonId()
+    {
+        $base_url = config('api.urls.base_url');
+        $url = $base_url.'pokedex/1';
+
+        $response = Http::get($url);
+
+        try {
+            $data = $response->json();
+
+            $lastEntry = $data['pokemon_entries'][count($data['pokemon_entries']) - 1];
+
+            return $lastEntry['entry_number'];
+        } catch (Exception $e) {
+
+        }
     }
 }
