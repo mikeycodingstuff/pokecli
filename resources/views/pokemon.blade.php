@@ -4,13 +4,13 @@
     <x-header title={{$title}} />
     <div class="px-1 pb-1">
         <div>
-			<span class="text-indigo-600">Name:</span> {{ $pokemon['name'] }}
+			<span class="text-indigo-600 capitalize">name:</span> {{ ucfirst($pokemon['name']) }}
 		</div>
         <div>
-			<span class="text-indigo-600">Id:</span> {{ $pokemon['id'] }}
+			<span class="text-indigo-600 uppercase">ID:</span> {{ $pokemon['id'] }}
 		</div>
         <div>
-			<span class="text-indigo-600">{{ count($pokemon['types']) <= 1 ? 'Type' : 'Types' }}:</span> 
+			<span class="text-indigo-600 capitalize">{{ count($pokemon['types']) <= 1 ? 'type' : 'types' }}:</span> 
 			<span> </span>
 			@foreach ($pokemon['types'] as $type)
 				@php
