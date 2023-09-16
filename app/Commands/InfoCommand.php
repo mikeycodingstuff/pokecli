@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Commands;
 
+use Illuminate\Support\Facades\Http;
 use LaravelZero\Framework\Commands\Command;
 
 use function Termwind\{render};
@@ -16,23 +17,23 @@ class InfoCommand extends Command
 
     public function handle()
     {
+        $query = $this->argument('query');
+        $random = $this->option('random');
+
+        if (!$query && !$random) {
+            $this->error('Please provide a Pokémon name or ID, or use the --random or -r option to get a random Pokémon.');
+
+            return self::INVALID;
+        }
+
+        $baseUrl = config('api.urls.base_url');
+        $response = Http::get("$baseUrl/pokemon/$query");
+        $data = $response->json();
+
         $pokemon = [
-            'name' => 'Bulbasaur',
-            'id' => '1',
-            'types' => [
-                [
-                    'slot' => 1,
-                    'type' => [
-                        'name' => 'grass',
-                    ],
-                ],
-                [
-                    'slot' => 2,
-                    'type' => [
-                        'name' => 'poison',
-                    ],
-                ],
-            ],
+            'name' => $data['name'],
+            'id' => $data['id'],
+            'types' => $data['types']
         ];
 
         render(
