@@ -1,7 +1,7 @@
-@props(['pokemon'])
+@props(['title', 'pokemon'])
 
 <div>
-    <x-header title="Pokémon Info:" />
+    <x-header title={{$title}} />
     <div class="px-1 pb-1">
         <div>
 			<span class="text-indigo-600">Name:</span> {{ $pokemon['name'] }}

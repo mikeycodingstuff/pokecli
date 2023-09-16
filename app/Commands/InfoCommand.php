@@ -35,6 +35,13 @@ class InfoCommand extends Command
             ],
         ];
 
-        render(strval(view('pokemon', ['pokemon' => $pokemon])));
+        render(
+            strval(
+                view('pokemon', [
+                    'title' => 'Pokémon Info:',
+                    'pokemon' => $pokemon,
+                ])
+            )
+        );
     }
 }
