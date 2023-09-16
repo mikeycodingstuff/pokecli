@@ -39,8 +39,8 @@ class InfoCommand extends Command
             'name' => $data['name'],
             'id' => $data['id'],
             'types' => $data['types'],
-            'weight' => $this->decimetreToMetre($data['weight']),
-            'height' => $this->hectogramToKilogram($data['height']),
+            'weight' => self::decimetreToMetre($data['weight']),
+            'height' => self::hectogramToKilogram($data['height']),
         ];
 
         $view = view('pokemon', [
@@ -78,12 +78,12 @@ class InfoCommand extends Command
         }
     }
 
-    private static function hectogramToKilogram(float $HgWeight): float
+    public static function hectogramToKilogram(float $HgWeight): float
     {
         return $HgWeight * 0.1;
     }
 
-    private static function decimetreToMetre(float $DmHeight): float
+    public static function decimetreToMetre(float $DmHeight): float
     {
         return $DmHeight * 0.1;
     }
