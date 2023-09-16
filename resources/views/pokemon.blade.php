@@ -32,7 +32,7 @@
                     $typeName = $type['type']['name'];
                 @endphp
                 {{-- blade-formatter-disable --}}
-                <span class="text-{{ $styles['typeColors'][$typeName] }}">{{ $typeName }}</span>@unless ($loop->last),@endunless
+                <span class="text-{{ $styles['typeColors'][$typeName] }} uppercase">{{ $typeName }}</span>@unless ($loop->last),@endunless
                 {{-- blade-formatter-enable --}}
             @endforeach
         </div>
