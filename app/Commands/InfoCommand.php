@@ -32,35 +32,42 @@ class InfoCommand extends Command
         }
 
         $baseUrl = config('api.urls.base_url');
-        $response = Http::get("$baseUrl/pokemon/$query");
-        $data = $response->json();
 
-        $pokemon = [
-            'name' => $data['name'],
-            'id' => $data['id'],
-            'types' => $data['types'],
-            'weight' => self::decimetreToMetre($data['weight']),
-            'height' => self::hectogramToKilogram($data['height']),
-        ];
+        try {
+            $response = Http::get("$baseUrl/pokemon/$query");
+            $data = $response->json();
 
-        $view = view('pokemon', [
-            'title' => 'Pokémon Info:',
-            'pokemon' => $pokemon,
-        ]);
+            $pokemon = [
+                'name' => $data['name'],
+                'id' => $data['id'],
+                'types' => $data['types'],
+                'weight' => self::decimetreToMetre($data['weight']),
+                'height' => self::hectogramToKilogram($data['height']),
+            ];
 
-        render(strval($view));
+            $view = view('pokemon', [
+                'title' => 'Pokémon Info:',
+                'pokemon' => $pokemon,
+            ]);
 
-        return self::SUCCESS;
+            render(strval($view));
+
+            return self::SUCCESS;
+        } catch (Exception $e) {
+            $this->error('An error occurred: '.$e->getMessage());
+
+            return self::FAILURE;
+        }
     }
 
     public function getRandomPokemonId(): int
     {
-        $max = static::getHighestPokemonId();
+        $max = $this->getHighestPokemonId();
 
         return random_int(0, $max);
     }
 
-    private static function getHighestPokemonId()
+    private function getHighestPokemonId()
     {
         $base_url = config('api.urls.base_url');
         $url = $base_url.'pokedex/1';
@@ -74,7 +81,9 @@ class InfoCommand extends Command
 
             return $lastEntry['entry_number'];
         } catch (Exception $e) {
+            $this->error('An error occurred while fetching Pokémon data: '.$e->getMessage());
 
+            return self::FAILURE;
         }
     }
 
