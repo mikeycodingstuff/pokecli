@@ -10,9 +10,9 @@ use LaravelZero\Framework\Commands\Command;
 
 class Welcome extends Command
 {
-    protected string $signature = 'welcome';
+    protected $signature = 'welcome';
 
-    protected string $description = 'Print welcome';
+    protected $description = 'Print welcome';
 
     public function handle(): int
     {
