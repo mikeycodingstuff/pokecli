@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Each color is associated with a tailwind class that it should replace
  */
