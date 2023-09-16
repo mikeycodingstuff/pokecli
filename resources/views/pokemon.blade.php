@@ -1,8 +1,8 @@
 @props(['title', 'pokemon'])
 
-<div>
+<div class="mx-2 my-1">
     <x-header title={{$title}} />
-    <div class="px-1 pb-1">
+    <div class="mt-1">
         <div>
 			<span class="text-indigo-600 capitalize">name:</span> {{ ucfirst($pokemon['name']) }}
 		</div>
@@ -18,6 +18,12 @@
 				@endphp
 				<span>{{ $typeName }}</span>@unless($loop->last),@endunless
 			@endforeach
+		</div>
+		<div>
+			<span class="text-indigo-600 capitalize">weight:</span> {{ $pokemon['weight'] }}m
+		</div>
+		<div>
+			<span class="text-indigo-600 capitalize">height:</span> {{ $pokemon['height'] }}kg
 		</div>
     </div>
 </div>
