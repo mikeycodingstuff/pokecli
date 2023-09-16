@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Http;
 use LaravelZero\Framework\Commands\Command;
 
 use function Termwind\{render};
+use function Termwind\{style};
 
 class InfoCommand extends Command
 {
@@ -34,6 +35,10 @@ class InfoCommand extends Command
         $baseUrl = config('api.urls.base_url');
 
         try {
+            $mainColor = config('colors.main_color.hex');
+            $mainColorTw = config('colors.main_color.termwind_color');
+            style($mainColorTw)->color($mainColor);
+
             $response = Http::get("$baseUrl/pokemon/$query");
             $data = $response->json();
 
@@ -45,9 +50,22 @@ class InfoCommand extends Command
                 'height' => self::hectogramToKilogram($data['height']),
             ];
 
+            $typeColors = [];
+            foreach ($data['types'] as $type) {
+                $typeName = $type['type']['name'];
+                $typeConfig = config("colors.types.$typeName");
+
+                $typeColors[$typeName] = $typeConfig['termwind_color'];
+                style($typeConfig['termwind_color'])->color($typeConfig['hex']);
+            }
+
             $view = view('pokemon', [
-                'title' => 'Pokémon Info:',
+                'title' => 'pokémon info:',
                 'pokemon' => $pokemon,
+                'styles' => [
+                    'mainColor' => $mainColorTw,
+                    'typeColors' => $typeColors,
+                ],
             ]);
 
             render(strval($view));
