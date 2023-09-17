@@ -2,10 +2,10 @@
 
 @php
     use function Termwind\terminal;
-    
+
     $mainColor = $styles['mainColor'];
     $terminalWidth = terminal()->width();
-    
+
     $numColumns = floor($terminalWidth / 20);
 @endphp
 
@@ -14,9 +14,9 @@
         :title="$title"
         :color="$mainColor"
     />
-    <div class="mt-1 flex flex-wrap">
+    <div class="mt-1">
         @foreach ($pokemons as $pokemon)
-            <span class="capitalize w-1/15">{{ $pokemon['id'] }}.{{ $pokemon['name'] }}</span>
+            <div class="capitalize ">{{ $pokemon['id'] }}.{{ $pokemon['name'] }}</div>
         @endforeach
     </div>
 </div>
