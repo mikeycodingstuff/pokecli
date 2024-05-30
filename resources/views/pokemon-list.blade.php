@@ -9,14 +9,16 @@
     $numColumns = floor($terminalWidth / 20);
 @endphp
 
-<div class="mx-2 my-1">
-    <x-header
-        :title="$title"
-        :color="$mainColor"
-    />
-    <div class="mt-1">
-        @foreach ($pokemons as $pokemon)
-            <div class="capitalize ">{{ $pokemon['id'] }}.{{ $pokemon['name'] }}</div>
-        @endforeach
+<x-layout>
+    <div class="mx-2 my-1">
+        <x-header
+            :title="$title"
+            :color="$mainColor"
+        />
+        <div class="mt-1">
+            @foreach ($pokemons as $pokemon)
+                <div class="capitalize ">{{ $pokemon['id'] }}.{{ $pokemon['name'] }}</div>
+            @endforeach
+        </div>
     </div>
-</div>
+</x-layout>
