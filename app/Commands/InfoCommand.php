@@ -15,7 +15,7 @@ class InfoCommand extends Command
 {
     protected $signature = 'info {query? : The Pokémon name or ID} {--r|random : Get info on a random Pokémon}';
 
-    protected $description = 'Get info about a Pokémon';
+    protected $description = 'Get info about a single Pokémon';
 
     public function handle()
     {
