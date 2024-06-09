@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Helpers;
+declare(strict_types=1);
 
+namespace App\Helpers;
 
 use Illuminate\Support\Str;
 use InvalidArgumentException;
@@ -54,7 +55,7 @@ class RomanNumeralsConverter
         for ($i = 0; $i < strlen($numeral); $i++) {
             $currentNumeral = $numeral[$i];
 
-            if (!isset(static::$lookup[$currentNumeral])) {
+            if (! isset(static::$lookup[$currentNumeral])) {
                 throw new InvalidArgumentException("$numeral is not a valid Roman numeral.");
             }
 

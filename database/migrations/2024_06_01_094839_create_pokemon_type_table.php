@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Models\Pokemon;
 use App\Models\Type;
 use Illuminate\Database\Migrations\Migration;

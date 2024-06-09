@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Helpers\RomanNumeralsConverter;
@@ -27,7 +29,7 @@ class GenerationFactory extends Factory
     public function configure(): static
     {
         return $this->afterCreating(function (Generation $generation) {
-            $generation->name = 'generation-' . RomanNumeralsConverter::convertToRomanNumeral($generation->id);
+            $generation->name = 'generation-'.RomanNumeralsConverter::convertToRomanNumeral($generation->id);
             $generation->save();
         });
     }
