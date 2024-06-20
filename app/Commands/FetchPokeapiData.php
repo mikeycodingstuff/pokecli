@@ -104,7 +104,7 @@ class FetchPokeapiData extends Command
             ->where('name', $name)
             ->first();
 
-        if (! $gen) {
+        if (!$gen) {
             $data = Http::get($url)->json();
 
             $gen = Generation::create([
@@ -129,7 +129,7 @@ class FetchPokeapiData extends Command
             ->where('name', $name)
             ->first();
 
-        if (! $type) {
+        if (!$type) {
             $data = Http::get($url)->json();
 
             $generation = $this->fetchAndStoreGen($data['generation']);
@@ -156,7 +156,7 @@ class FetchPokeapiData extends Command
             ->where('name', $name)
             ->first();
 
-        if (! $pokemon) {
+        if (!$pokemon) {
             $data = Http::get($url)->json();
 
             $genItem = Http::get($data['species']['url'])->json('generation');
@@ -175,7 +175,7 @@ class FetchPokeapiData extends Command
 
             $typeItems->each(function ($typeItem) use ($pokemon) {
                 $type = $this->fetchAndStoreType($typeItem);
-                if (! $pokemon->types->contains($type->id)) {
+                if (!$pokemon->types->contains($type->id)) {
                     $pokemon->types()->attach($type);
                 }
             });

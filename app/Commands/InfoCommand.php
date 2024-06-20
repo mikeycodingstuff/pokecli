@@ -27,7 +27,7 @@ class InfoCommand extends Command
         $query = $this->argument('query');
         $random = $this->option('random');
 
-        if (! $query && ! $random) {
+        if (!$query && !$random) {
             $this->error('Please provide a Pokémon name or ID, or use the --random or -r option to get a random Pokémon.');
 
             return self::INVALID;
