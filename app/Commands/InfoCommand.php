@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Commands;
 
+use App\Helpers\NumberHelper;
 use Exception;
 use Illuminate\Support\Facades\Http;
 use LaravelZero\Framework\Commands\Command;
 
+use Random\RandomException;
 use function Termwind\{render};
 use function Termwind\{style};
 
@@ -17,7 +19,10 @@ class InfoCommand extends Command
 
     protected $description = 'Get info about a single Pokémon';
 
-    public function handle()
+    /**
+     * @throws RandomException
+     */
+    public function handle(): int
     {
         $query = $this->argument('query');
         $random = $this->option('random');
@@ -46,8 +51,8 @@ class InfoCommand extends Command
                 'name' => $data['name'],
                 'id' => $data['id'],
                 'types' => $data['types'],
-                'weight' => self::decimetreToMetre($data['weight']),
-                'height' => self::hectogramToKilogram($data['height']),
+                'weight' => NumberHelper::decimetreToMetre($data['weight']),
+                'height' => NumberHelper::hectogramToKilogram($data['height']),
             ];
 
             $typeColors = [];
@@ -78,6 +83,9 @@ class InfoCommand extends Command
         }
     }
 
+    /**
+     * @throws RandomException
+     */
     public function getRandomPokemonId(): int
     {
         $max = $this->getHighestPokemonId();
@@ -103,15 +111,5 @@ class InfoCommand extends Command
 
             return self::FAILURE;
         }
-    }
-
-    public static function hectogramToKilogram(float $HgWeight): float
-    {
-        return round($HgWeight * 0.1, 2);
-    }
-
-    public static function decimetreToMetre(float $DmHeight): float
-    {
-        return round($DmHeight * 0.1, 2);
     }
 }
