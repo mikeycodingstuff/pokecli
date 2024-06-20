@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace App\Commands;
 
 use App\Helpers\NumberHelper;
+use App\Helpers\StyleHelper;
 use Exception;
 use Illuminate\Support\Facades\Http;
 use LaravelZero\Framework\Commands\Command;
 use Random\RandomException;
 
-use function Termwind\{render, style};
+use function Termwind\{ask, render, style};
 
 class InfoCommand extends Command
 {
@@ -26,10 +27,17 @@ class InfoCommand extends Command
         $query = $this->argument('query');
         $random = $this->option('random');
 
-        if (!$query && !$random) {
-            $this->error('Please provide a Pokémon name/ID, or use the --random option to get a random Pokémon.');
+        $mainColor = StyleHelper::setMainColor();
 
-            return self::INVALID;
+        if (!$query && !$random) {
+            $view = view('ask', [
+                'question' => 'Please provide the name or ID of the Pokémon you would like information on:',
+                'styles' => [
+                    'mainColor' => $mainColor,
+                ],
+            ]);
+
+            $query = ask(strval($view));
         }
 
         if ($query && $random) {
@@ -45,9 +53,6 @@ class InfoCommand extends Command
         $baseUrl = config('api.urls.base_url');
 
         try {
-            $mainColor = config('colors.main_color');
-            style($mainColor['termwind_color'])->color($mainColor['hex']);
-
             $response = Http::get("$baseUrl/pokemon/$query");
             $data = $response->json();
 
@@ -72,7 +77,7 @@ class InfoCommand extends Command
                 'title' => 'pokémon info:',
                 'pokemon' => $pokemon,
                 'styles' => [
-                    'mainColor' => $mainColor['termwind_color'],
+                    'mainColor' => $mainColor,
                     'typeColors' => $typeColors,
                 ],
             ]);
@@ -99,11 +104,10 @@ class InfoCommand extends Command
 
     private function getHighestPokemonId()
     {
-        $base_url = config('api.urls.base_url');
-        $url = $base_url . 'pokedex/1';
-
         try {
+            $url = config('api.urls.national_dex');
             $data = Http::get($url)->json();
+
             $lastEntry = end($data['pokemon_entries']);
 
             return $lastEntry['entry_number'];

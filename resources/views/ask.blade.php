@@ -1,11 +1,11 @@
 @props(['question', 'styles'])
 
 @php
-    $mainBgColor = $styles['mainBgColor'];
+    $mainColor = $styles['mainColor'];
 @endphp
 
 <div>
-    <span class="mt-1 ml-2 mr-1 bg-{{ $mainBgColor }}">
+    <span class="mt-1 ml-2 mr-1 bg-{{ $mainColor }}">
         {{ $question }}
     </span>
 

@@ -8,11 +8,11 @@ use function Termwind\style;
 
 class StyleHelper
 {
-    public static function setMainBgColor(): string
+    public static function setMainColor(): string
     {
-        $mainBgColor = config('colors.main_bg_color');
-        style($mainBgColor['termwind_color'])->color($mainBgColor['hex']);
+        $mainColor = config('colors.main_color');
+        style($mainColor['termwind_color'])->color($mainColor['hex']);
 
-        return $mainBgColor['termwind_color'];
+        return $mainColor['termwind_color'];
     }
 }

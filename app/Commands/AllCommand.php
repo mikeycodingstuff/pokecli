@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Commands;
 
+use App\Helpers\StyleHelper;
 use Exception;
 use Illuminate\Support\Facades\Http;
 use LaravelZero\Framework\Commands\Command;
 
 use function Termwind\render;
-use function Termwind\style;
 
 class AllCommand extends Command
 {
@@ -17,14 +17,12 @@ class AllCommand extends Command
 
     protected $description = 'Get a list of all Pokémon';
 
-    public function handle()
+    public function handle(): int
     {
         $baseUrl = config('api.urls.base_url');
 
         try {
-            $mainColor = config('colors.main_color.hex');
-            $mainColorTw = config('colors.main_color.termwind_color');
-            style($mainColorTw)->color($mainColor);
+            $mainColor = StyleHelper::setMainColor();
 
             $response = Http::get("$baseUrl/pokedex/1");
             $data = $response->json();
@@ -41,7 +39,7 @@ class AllCommand extends Command
                 'title' => 'all pokémon:',
                 'pokemons' => $pokemons,
                 'styles' => [
-                    'mainColor' => $mainColorTw,
+                    'mainColor' => $mainColor,
                 ],
             ]);
 
