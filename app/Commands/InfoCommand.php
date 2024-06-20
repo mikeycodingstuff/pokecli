@@ -8,8 +8,8 @@ use App\Helpers\NumberHelper;
 use Exception;
 use Illuminate\Support\Facades\Http;
 use LaravelZero\Framework\Commands\Command;
-
 use Random\RandomException;
+
 use function Termwind\{render};
 use function Termwind\{style};
 
