@@ -10,8 +10,7 @@ use Illuminate\Support\Facades\Http;
 use LaravelZero\Framework\Commands\Command;
 use Random\RandomException;
 
-use function Termwind\{render};
-use function Termwind\{style};
+use function Termwind\{render, style};
 
 class InfoCommand extends Command
 {
@@ -28,7 +27,13 @@ class InfoCommand extends Command
         $random = $this->option('random');
 
         if (!$query && !$random) {
-            $this->error('Please provide a Pokémon name or ID, or use the --random option to get a random Pokémon.');
+            $this->error('Please provide a Pokémon name/ID, or use the --random option to get a random Pokémon.');
+
+            return self::INVALID;
+        }
+
+        if ($query && $random) {
+            $this->error('Please provide either a Pokémon name/ID or use the --random option, not both.');
 
             return self::INVALID;
         }
@@ -97,12 +102,9 @@ class InfoCommand extends Command
         $base_url = config('api.urls.base_url');
         $url = $base_url . 'pokedex/1';
 
-        $response = Http::get($url);
-
         try {
-            $data = $response->json();
-
-            $lastEntry = $data['pokemon_entries'][count($data['pokemon_entries']) - 1];
+            $data = Http::get($url)->json();
+            $lastEntry = end($data['pokemon_entries']);
 
             return $lastEntry['entry_number'];
         } catch (Exception $e) {
