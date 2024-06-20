@@ -49,7 +49,7 @@ class AllCommand extends Command
 
             return self::SUCCESS;
         } catch (Exception $e) {
-            $this->error('An error occurred: '.$e->getMessage());
+            $this->error('An error occurred: ' . $e->getMessage());
 
             return self::FAILURE;
         }

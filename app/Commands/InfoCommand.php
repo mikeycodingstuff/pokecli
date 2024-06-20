@@ -28,7 +28,7 @@ class InfoCommand extends Command
         $random = $this->option('random');
 
         if (!$query && !$random) {
-            $this->error('Please provide a Pokémon name or ID, or use the --random or -r option to get a random Pokémon.');
+            $this->error('Please provide a Pokémon name or ID, or use the --random option to get a random Pokémon.');
 
             return self::INVALID;
         }
@@ -40,9 +40,8 @@ class InfoCommand extends Command
         $baseUrl = config('api.urls.base_url');
 
         try {
-            $mainColor = config('colors.main_color.hex');
-            $mainColorTw = config('colors.main_color.termwind_color');
-            style($mainColorTw)->color($mainColor);
+            $mainColor = config('colors.main_color');
+            style($mainColor['termwind_color'])->color($mainColor['hex']);
 
             $response = Http::get("$baseUrl/pokemon/$query");
             $data = $response->json();
@@ -68,7 +67,7 @@ class InfoCommand extends Command
                 'title' => 'pokémon info:',
                 'pokemon' => $pokemon,
                 'styles' => [
-                    'mainColor' => $mainColorTw,
+                    'mainColor' => $mainColor['termwind_color'],
                     'typeColors' => $typeColors,
                 ],
             ]);
@@ -77,7 +76,7 @@ class InfoCommand extends Command
 
             return self::SUCCESS;
         } catch (Exception $e) {
-            $this->error('An error occurred: '.$e->getMessage());
+            $this->error('An error occurred: ' . $e->getMessage());
 
             return self::FAILURE;
         }
@@ -96,7 +95,7 @@ class InfoCommand extends Command
     private function getHighestPokemonId()
     {
         $base_url = config('api.urls.base_url');
-        $url = $base_url.'pokedex/1';
+        $url = $base_url . 'pokedex/1';
 
         $response = Http::get($url);
 
@@ -107,7 +106,7 @@ class InfoCommand extends Command
 
             return $lastEntry['entry_number'];
         } catch (Exception $e) {
-            $this->error('An error occurred while fetching Pokémon data: '.$e->getMessage());
+            $this->error('An error occurred while fetching Pokémon data: ' . $e->getMessage());
 
             return self::FAILURE;
         }
