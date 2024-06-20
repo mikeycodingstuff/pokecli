@@ -11,7 +11,7 @@ trait GetsResourceIndexRouteData
 {
     protected function getList(string $key): Collection
     {
-        $url = config("urls.$key");
+        $url = config("api.urls.$key");
         $response = Http::get($url);
 
         return collect($response->json('results'));
