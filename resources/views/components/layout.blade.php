@@ -1,7 +1,12 @@
+@props(['textColor', 'bgColor'])
+
 <html>
     <head>
 		<meta charset="UTF-8">
+        <title></title>
     </head>
 
-	{{ $slot }}
+    <div class="text-{{$textColor}} bg-{{$bgColor}}">
+	    {{ $slot }}
+    </div>
 </html>
