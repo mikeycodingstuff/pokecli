@@ -8,11 +8,32 @@ use function Termwind\style;
 
 class StyleHelper
 {
-    public static function setMainColor(): string
+    /**
+     * Uses the color config to set a style in termwind.
+     * e.g. changing yellow-100 to #A8A878.
+     *
+     * @return string termwind color to be passed to the view.
+     */
+    public static function setColor(string $colorName): string
     {
-        $mainColor = config('colors.main_color');
-        style($mainColor['termwind_color'])->color($mainColor['hex']);
+        $color = config("colors.$colorName");
+        style($color['termwind'])->color($color['hex']);
 
-        return $mainColor['termwind_color'];
+        return $color['termwind'];
+    }
+
+    public static function setprimaryColor(): string
+    {
+        return static::setColor('primary_color');
+    }
+
+    public static function setBgColor(): string
+    {
+        return static::setColor('bg_color');
+    }
+
+    public static function setTextColor(): string
+    {
+        return static::setColor('text_color');
     }
 }
