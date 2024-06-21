@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use LaravelZero\Framework\Commands\Command;
 
-class FetchPokeapiData extends Command
+class FetchPokeApiData extends Command
 {
     use GetsResourceIndexRouteData;
 
