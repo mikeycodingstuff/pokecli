@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Helpers;
 
+use Illuminate\Support\Collection;
+
 use function Termwind\style;
 
 class StyleHelper
@@ -35,5 +37,15 @@ class StyleHelper
     public static function setTextColor(): string
     {
         return static::setColor('text_color');
+    }
+
+    public static function setTypeColors(Collection $types): Collection
+    {
+        return $types->mapWithKeys(function ($type) {
+            $typeMap = config("colors.types.$type->name");
+            style($typeMap['termwind'])->color($typeMap['hex']);
+
+            return [$type->name => $typeMap['termwind']];
+        });
     }
 }
