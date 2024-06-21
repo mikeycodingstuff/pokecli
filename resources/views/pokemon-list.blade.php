@@ -3,7 +3,7 @@
 @php
     use function Termwind\terminal;
 
-    $mainColor = $styles['mainColor'];
+    $primaryColor = $styles['primaryColor'];
     $terminalWidth = terminal()->width();
 
     $numColumns = floor($terminalWidth / 20);
@@ -13,7 +13,7 @@
     <div class="mx-2 my-1">
         <x-header
             :title="$title"
-            :color="$mainColor"
+            :color="$primaryColor"
         />
         <div class="mt-1">
             @foreach ($pokemons as $pokemon)
