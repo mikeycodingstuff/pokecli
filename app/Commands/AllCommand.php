@@ -22,7 +22,7 @@ class AllCommand extends Command
         $baseUrl = config('api.urls.base_url');
 
         try {
-            $mainColor = StyleHelper::setMainColor();
+            $primaryColor = StyleHelper::setprimaryColor();
 
             $response = Http::get("$baseUrl/pokedex/1");
             $data = $response->json();
@@ -39,7 +39,7 @@ class AllCommand extends Command
                 'title' => 'all pokémon:',
                 'pokemons' => $pokemons,
                 'styles' => [
-                    'mainColor' => $mainColor,
+                    'primaryColor' => $primaryColor,
                 ],
             ]);
 
