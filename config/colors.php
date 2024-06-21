@@ -6,90 +6,98 @@ declare(strict_types=1);
  * Each color is associated with a tail/termwind color that it is intended to replace
  */
 return [
-    'main_color' => [
+    'primary_color' => [
         'hex' => '#7B62AC',
-        'termwind_color' => 'indigo-400',
+        'termwind' => 'indigo-400',
+    ],
+    'text_color' => [
+        'hex' => '#D0D0D0',
+        'termwind' => 'slate-300',
+    ],
+    'bg_color' => [
+        'hex' => '#292C3C',
+        'termwind' => 'indigo-500',
     ],
     'types' => [
         'normal' => [
             'hex' => '#A8A878',
-            'termwind_color' => 'yellow-100',
+            'termwind' => 'yellow-100',
         ],
         'fire' => [
             'hex' => '#F08030',
-            'termwind_color' => 'orange-400',
+            'termwind' => 'orange-400',
         ],
         'water' => [
             'hex' => '#6890F0',
-            'termwind_color' => 'blue-300',
+            'termwind' => 'blue-300',
         ],
         'electric' => [
             'hex' => '#F8D030',
-            'termwind_color' => 'yellow-300',
+            'termwind' => 'yellow-300',
         ],
         'grass' => [
             'hex' => '#78C850',
-            'termwind_color' => 'green-300',
+            'termwind' => 'green-300',
         ],
         'ice' => [
             'hex' => '#98D8D8',
-            'termwind_color' => 'teal-100',
+            'termwind' => 'teal-100',
         ],
         'fighting' => [
             'hex' => '#C03028',
-            'termwind_color' => 'red-700',
+            'termwind' => 'red-700',
         ],
         'poison' => [
             'hex' => '#A040A0',
-            'termwind_color' => 'fuchsia-500',
+            'termwind' => 'fuchsia-500',
         ],
         'ground' => [
             'hex' => '#E0C068',
-            'termwind_color' => 'amber-200',
+            'termwind' => 'amber-200',
         ],
         'flying' => [
             'hex' => '#A890F0',
-            'termwind_color' => 'violet-400',
+            'termwind' => 'violet-400',
         ],
         'psychic' => [
             'hex' => '#F85888',
-            'termwind_color' => 'pink-400',
+            'termwind' => 'pink-400',
         ],
         'bug' => [
             'hex' => '#A8B820',
-            'termwind_color' => 'lime-400',
+            'termwind' => 'lime-400',
         ],
         'rock' => [
             'hex' => '#B8A038',
-            'termwind_color' => 'amber-300',
+            'termwind' => 'amber-300',
         ],
         'ghost' => [
             'hex' => '#705898',
-            'termwind_color' => 'indigo-500',
+            'termwind' => 'indigo-500',
         ],
         'dragon' => [
             'hex' => '#7038F8',
-            'termwind_color' => 'indigo-600',
+            'termwind' => 'indigo-600',
         ],
         'dark' => [
             'hex' => '#705848',
-            'termwind_color' => 'yellow-900',
+            'termwind' => 'yellow-900',
         ],
         'steel' => [
             'hex' => '#B8B8D0',
-            'termwind_color' => 'indigo-50',
+            'termwind' => 'indigo-50',
         ],
         'fairy' => [
             'hex' => '#EE99AC',
-            'termwind_color' => 'rose-200',
+            'termwind' => 'rose-200',
         ],
         'unknown' => [
             'hex' => '#68A090',
-            'termwind_color' => 'emerald-600',
+            'termwind' => 'emerald-600',
         ],
         'shadow' => [
             'hex' => '#68A090',
-            'termwind_color' => 'emerald-500',
+            'termwind' => 'emerald-500',
         ],
     ],
 ];
