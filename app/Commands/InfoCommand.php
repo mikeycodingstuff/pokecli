@@ -4,18 +4,20 @@ declare(strict_types=1);
 
 namespace App\Commands;
 
+use App\Helpers\ApiPokemonWrapper;
 use App\Helpers\NumberHelper;
 use App\Helpers\StyleHelper;
+use App\Models\Pokemon;
 use Exception;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use LaravelZero\Framework\Commands\Command;
 use Random\RandomException;
-
-use function Termwind\{ask, render, style};
+use function Termwind\{ask, render};
 
 class InfoCommand extends Command
 {
-    protected $signature = 'info {query? : The Pokémon name or ID} {--r|random : Get info on a random Pokémon}';
+    protected $signature = 'info {query? : The Pokémon name or ID} {--r|random : Get info on a random Pokémon} {--a|api : Get info via the PokéApi instead of the database.}';
 
     protected $description = 'Get info about a single Pokémon';
 
@@ -26,14 +28,19 @@ class InfoCommand extends Command
     {
         $query = $this->argument('query');
         $random = $this->option('random');
+        $useApi = $this->option('api');
 
-        $mainColor = StyleHelper::setMainColor();
+        $styles = [
+            'primaryColor' => StyleHelper::setprimaryColor(),
+            'bgColor' => StyleHelper::setBgColor(),
+            'textColor' => StyleHelper::setTextColor(),
+        ];
 
         if (!$query && !$random) {
             $view = view('ask', [
                 'question' => 'Please provide the name or ID of the Pokémon you would like information on:',
                 'styles' => [
-                    'mainColor' => $mainColor,
+                    'primaryColor' => $styles['primaryColor'],
                 ],
             ]);
 
@@ -46,6 +53,49 @@ class InfoCommand extends Command
             return self::INVALID;
         }
 
+        if ($useApi) {
+            return $this->getPokemonInfoFromApi($query, $random, $styles) === 0 ? self::SUCCESS : self::FAILURE;
+        }
+
+        return $this->getPokemonInfoFromDb($query, $random, $styles) === 0 ? self::SUCCESS : self::FAILURE;
+    }
+
+    protected function getPokemonInfoFromDb(int|string $query, bool $random, array $styles): int
+    {
+        if ($random) {
+            $pokemon = Pokemon::inRandomOrder()->first();
+
+            if (!$pokemon) {
+                $this->error('Database is empty. Please try searching with the Api using the --api flag, or populating the database with fetch:all');
+
+                return self::INVALID;
+            }
+        }
+
+        if (is_numeric($query)) {
+            $pokemon = Pokemon::firstWhere('id', $query);
+        } else {
+            $pokemon = Pokemon::firstWhere('name', $query);
+        }
+
+        if (!$pokemon) {
+            $this->error('Could not find Pokémon in the db. Please try searching with the Api using the --api flag.');
+
+            return self::INVALID;
+        }
+
+        $styles['typeColors'] = StyleHelper::setTypeColors($pokemon->types);
+
+        $this->createAndRenderView($pokemon, $styles);
+
+        return self::SUCCESS;
+    }
+
+    /**
+     * @throws RandomException
+     */
+    protected function getPokemonInfoFromApi(int|string $query, bool $random, array $styles): int
+    {
         if ($random) {
             $query = $this->getRandomPokemonId();
         }
@@ -53,8 +103,7 @@ class InfoCommand extends Command
         $baseUrl = config('api.urls.base_url');
 
         try {
-            $response = Http::get("$baseUrl/pokemon/$query");
-            $data = $response->json();
+            $data = Http::get("$baseUrl/pokemon/$query")->throw()->json();
 
             $pokemon = [
                 'name' => $data['name'],
@@ -64,29 +113,16 @@ class InfoCommand extends Command
                 'height' => NumberHelper::hectogramToKilogram($data['height']),
             ];
 
-            $typeColors = [];
-            foreach ($data['types'] as $type) {
-                $typeName = $type['type']['name'];
-                $typeConfig = config("colors.types.$typeName");
+            $pokemon = ApiPokemonWrapper::createFromArray($pokemon);
+            $styles['typeColors'] = StyleHelper::setTypeColors(collect($pokemon->types));
 
-                $typeColors[$typeName] = $typeConfig['termwind_color'];
-                style($typeConfig['termwind_color'])->color($typeConfig['hex']);
-            }
-
-            $view = view('pokemon', [
-                'title' => 'pokémon info:',
-                'pokemon' => $pokemon,
-                'styles' => [
-                    'mainColor' => $mainColor,
-                    'typeColors' => $typeColors,
-                ],
-            ]);
-
-            render(strval($view));
+            $this->createAndRenderView($pokemon, $styles);
 
             return self::SUCCESS;
-        } catch (Exception $e) {
-            $this->error('An error occurred: ' . $e->getMessage());
+        } catch (RequestException $e) {
+            if ($e->getCode() === 404) {
+                $this->error('Pokémon not found.');
+            }
 
             return self::FAILURE;
         }
@@ -95,14 +131,14 @@ class InfoCommand extends Command
     /**
      * @throws RandomException
      */
-    public function getRandomPokemonId(): int
+    protected function getRandomPokemonId(): int
     {
         $max = $this->getHighestPokemonId();
 
         return random_int(0, $max);
     }
 
-    private function getHighestPokemonId()
+    protected function getHighestPokemonId()
     {
         try {
             $url = config('api.urls.national_dex');
@@ -116,5 +152,16 @@ class InfoCommand extends Command
 
             return self::FAILURE;
         }
+    }
+
+    protected function createAndRenderView(Pokemon|ApiPokemonWrapper $pokemon, array $styles): void
+    {
+        $view = view('pokemon', [
+            'title' => 'pokémon info:',
+            'pokemon' => $pokemon,
+            'styles' => $styles,
+        ]);
+
+        render(strval($view));
     }
 }
