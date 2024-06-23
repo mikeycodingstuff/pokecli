@@ -1,9 +1,8 @@
-@props(['title', 'pokemons', 'styles'])
+@props(['title', 'pokemons', 'twOverrides'])
 
 @php
     use function Termwind\terminal;
 
-    $primaryColor = $styles['primaryColor'];
     $terminalWidth = terminal()->width();
 
     $numColumns = floor($terminalWidth / 20);
@@ -13,7 +12,7 @@
     <div class="mx-2 my-1">
         <x-header
             :title="$title"
-            :color="$primaryColor"
+            :twOverrides="$twOverrides"
         />
         <div class="mt-1">
             @foreach ($pokemons as $pokemon)

@@ -1,7 +1,7 @@
-@props(['question', 'styles'])
+@props(['question', 'textColor', 'bgColor'])
 
-<div class="mt-1 ml-1 mr-1">
-    <span class="bg-{{ $styles['primaryColor'] }} px-1">
+<div class="mt-1 ml-2 mr-1">
+    <span class="text-{{ $textColor }} bg-{{ $primaryColor }} px-1">
         {{ $question }}
     </span>
 

@@ -1,56 +1,37 @@
-@props(['title', 'pokemon', 'styles'])
+@props(['title', 'pokemon', 'twOverrides'])
 
-@php
-    $primaryColor = $styles['primaryColor'];
-    $bgColor = $styles['bgColor'];
-    $textColor = $styles['textColor'];
-@endphp
-
-<x-layout :textColor="$textColor" :bgColor="$bgColor">
+<x-layout :textColor="$twOverrides['textColor']" :bgColor="$twOverrides['bgColor']">
     <div class="mx-2 my-1 mt-2">
         <x-header
             :title="$title"
-            :color="$primaryColor"
+            :primaryColor="$twOverrides['primaryColor']"
         />
         <div class="mt-1">
             <x-attribute
                 attributeName="name"
-                :attributeValue="ucfirst($pokemon->name)"
-                :textColor="$primaryColor"
+                :attributeValue="$pokemon->name"
                 textStyle="capitalize"
             />
             <x-attribute
                 attributeName="id"
-                :attributeValue="ucfirst($pokemon->id)"
-                :textColor="$primaryColor"
+                :attributeValue="$pokemon->id"
                 textStyle="uppercase"
             />
-            <div>
-                <span class="text-{{ $primaryColor }} capitalize">
-                    {{ count($pokemon->types) <= 1 ? 'type' : 'types' }}:
-                </span>
-
-                <span> </span>
-
-                @foreach ($pokemon->types as $type)
-                    {{-- blade-formatter-disable --}}
-                    <span class="uppercase text-{{ $styles['typeColors'][$type->name] }}">
-                        {{ $type->name }}
-                    </span>@unless ($loop->last),@endunless
-                    {{-- blade-formatter-enable --}}
-                @endforeach
-            </div>
+            <x-attribute
+                attributeName="{{ count($pokemon->types) <= 1 ? 'type' : 'types' }}"
+                :typeColors="$twOverrides['typeColors']"
+                :types="$pokemon->types"
+                textStyle="capitalize"
+            />
             <x-attribute
                 attributeName="weight"
-                :attributeValue="ucfirst($pokemon->weight)"
-                :textColor="$primaryColor"
+                :attributeValue="$pokemon->weight"
                 textStyle="capitalize"
                 unit="kg"
             />
             <x-attribute
                 attributeName="height"
-                :attributeValue="ucfirst($pokemon->height)"
-                :textColor="$primaryColor"
+                :attributeValue="$pokemon->height"
                 textStyle="capitalize"
                 unit="m"
             />

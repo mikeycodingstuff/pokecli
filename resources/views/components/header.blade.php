@@ -1,3 +1,5 @@
-@props(['title', 'color'])
+@props(['title', 'primaryColor'])
 
-<div class="px-1 bg-{{ $color }} capitalize">{{ $title }}</div>
+<div class="px-1 bg-{{ $primaryColor }} capitalize">
+    {{ $title }}
+</div>
