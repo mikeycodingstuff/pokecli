@@ -6,7 +6,7 @@
         <title></title>
     </head>
 
-    <div class="text-{{$textColor}} bg-{{$bgColor}}">
+    <div class="text-{{$textColor}} bg-{{$bgColor}} mb-1">
 	    {{ $slot }}
     </div>
 </html>
