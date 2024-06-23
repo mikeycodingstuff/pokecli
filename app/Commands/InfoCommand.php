@@ -10,6 +10,7 @@ use App\Helpers\StyleHelper;
 use App\Models\Pokemon;
 use Exception;
 use Illuminate\Http\Client\RequestException;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 use LaravelZero\Framework\Commands\Command;
 use Random\RandomException;
@@ -151,7 +152,7 @@ class InfoCommand extends Command
             $url = config('api.urls.national_dex');
             $data = Http::get($url)->json();
 
-            $lastEntry = end($data['pokemon_entries']);
+            $lastEntry = Arr::last($data['pokemon_entries']);
 
             return $lastEntry['entry_number'];
         } catch (Exception $e) {
