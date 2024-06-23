@@ -36,15 +36,11 @@ class Pokemon extends Model
 
     protected function weight(): Attribute
     {
-        return Attribute::make(
-            get: fn (int $value) => NumberHelper::hectogramToKilogram($value),
-        );
+        return Attribute::get(fn (int $value) => NumberHelper::hectogramToKilogram($value));
     }
 
     protected function height(): Attribute
     {
-        return Attribute::make(
-            get: fn (int $value) => NumberHelper::decimetreToMetre($value),
-        );
+        return Attribute::get(fn (int $value) => NumberHelper::decimetreToMetre($value));
     }
 }
