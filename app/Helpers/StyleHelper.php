@@ -24,7 +24,7 @@ class StyleHelper
         return $color['termwind'];
     }
 
-    public static function setprimaryColor(): string
+    public static function setPrimaryColor(): string
     {
         return static::setColor('primary_color');
     }

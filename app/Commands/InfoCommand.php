@@ -32,7 +32,7 @@ class InfoCommand extends Command
         $useApi = $this->option('api');
 
         $styles = [
-            'primaryColor' => StyleHelper::setprimaryColor(),
+            'primaryColor' => StyleHelper::setPrimaryColor(),
             'bgColor' => StyleHelper::setBgColor(),
             'textColor' => StyleHelper::setTextColor(),
         ];

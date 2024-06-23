@@ -22,7 +22,7 @@ class AllCommand extends Command
         $baseUrl = config('api.urls.base_url');
 
         try {
-            $primaryColor = StyleHelper::setprimaryColor();
+            $primaryColor = StyleHelper::setPrimaryColor();
 
             $response = Http::get("$baseUrl/pokedex/1");
             $data = $response->json();
