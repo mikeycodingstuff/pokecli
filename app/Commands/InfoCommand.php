@@ -11,6 +11,7 @@ use App\Models\Pokemon;
 use Exception;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use LaravelZero\Framework\Commands\Command;
 use Random\RandomException;
@@ -19,7 +20,10 @@ use function Termwind\{ask, render};
 
 class InfoCommand extends Command
 {
-    protected $signature = 'info {query? : The Pokémon name or ID} {--r|random : Get info on a random Pokémon} {--a|api : Get info via the PokéApi instead of the database.}';
+    protected $signature = 'info
+            {query? : The Pokémon name or ID}
+            {--r|random : Get info on a random Pokémon}
+            {--a|api : Get info via the PokéApi instead of the database.}';
 
     protected $description = 'Get info about a single Pokémon';
 
@@ -32,18 +36,12 @@ class InfoCommand extends Command
         $random = $this->option('random');
         $useApi = $this->option('api');
 
-        $styles = [
-            'primaryColor' => StyleHelper::setPrimaryColor(),
-            'bgColor' => StyleHelper::setBgColor(),
-            'textColor' => StyleHelper::setTextColor(),
-        ];
+        $twOverrides = $this->setBasicStyles();
 
         if (!$query && !$random) {
             $view = view('ask', [
                 'question' => 'Please provide the name or ID of the Pokémon you would like information on:',
-                'styles' => [
-                    'primaryColor' => $styles['primaryColor'],
-                ],
+                'twOverrides' => $twOverrides,
             ]);
 
             $query = ask(strval($view));
@@ -56,13 +54,13 @@ class InfoCommand extends Command
         }
 
         if ($useApi) {
-            return $this->getPokemonInfoFromApi($query, $random, $styles) === 0 ? self::SUCCESS : self::FAILURE;
+            return $this->getPokemonInfoFromApi($query, $random, $twOverrides) === 0 ? self::SUCCESS : self::FAILURE;
         }
 
-        return $this->getPokemonInfoFromDb($query, $random, $styles) === 0 ? self::SUCCESS : self::FAILURE;
+        return $this->getPokemonInfoFromDb($query, $random, $twOverrides) === 0 ? self::SUCCESS : self::FAILURE;
     }
 
-    protected function getPokemonInfoFromDb(int|string|null $query, bool $random, array $styles): int
+    protected function getPokemonInfoFromDb(int|string|null $query, bool $random, Collection $twOverrides): int
     {
         if ($random) {
             $pokemon = Pokemon::inRandomOrder()->first();
@@ -73,9 +71,9 @@ class InfoCommand extends Command
                 return self::INVALID;
             }
 
-            $styles['typeColors'] = StyleHelper::setTypeColors($pokemon->types);
+            $twOverrides['typeColors'] = StyleHelper::setTypeColors($pokemon->types);
 
-            $this->createAndRenderView($pokemon, $styles);
+            $this->createAndRenderView($pokemon, $twOverrides);
 
             return self::SUCCESS;
         }
@@ -92,9 +90,9 @@ class InfoCommand extends Command
             return self::INVALID;
         }
 
-        $styles['typeColors'] = StyleHelper::setTypeColors($pokemon->types);
+        $twOverrides['typeColors'] = StyleHelper::setTypeColors($pokemon->types);
 
-        $this->createAndRenderView($pokemon, $styles);
+        $this->createAndRenderView($pokemon, $twOverrides);
 
         return self::SUCCESS;
     }
@@ -102,7 +100,7 @@ class InfoCommand extends Command
     /**
      * @throws RandomException
      */
-    protected function getPokemonInfoFromApi(int|string $query, bool $random, array $styles): int
+    protected function getPokemonInfoFromApi(int|string $query, bool $random, Collection $twOverrides): int
     {
         if ($random) {
             $query = $this->getRandomPokemonId();
@@ -122,9 +120,9 @@ class InfoCommand extends Command
             ];
 
             $pokemon = ApiPokemonWrapper::createFromArray($pokemon);
-            $styles['typeColors'] = StyleHelper::setTypeColors(collect($pokemon->types));
+            $twOverrides['typeColors'] = StyleHelper::setTypeColors(collect($pokemon->types));
 
-            $this->createAndRenderView($pokemon, $styles);
+            $this->createAndRenderView($pokemon, $twOverrides);
 
             return self::SUCCESS;
         } catch (RequestException $e) {
@@ -162,14 +160,23 @@ class InfoCommand extends Command
         }
     }
 
-    protected function createAndRenderView(Pokemon|ApiPokemonWrapper $pokemon, array $styles): void
+    protected function createAndRenderView(Pokemon|ApiPokemonWrapper $pokemon, Collection $twOverrides): void
     {
         $view = view('pokemon', [
             'title' => 'pokémon info:',
             'pokemon' => $pokemon,
-            'styles' => $styles,
+            'twOverrides' => $twOverrides,
         ]);
 
         render(strval($view));
+    }
+
+    protected function setBasicStyles(): Collection
+    {
+        return collect([
+            'primaryColor' => StyleHelper::setPrimaryColor(),
+            'bgColor' => StyleHelper::setBgColor(),
+            'textColor' => StyleHelper::setTextColor(),
+        ]);
     }
 }

@@ -38,7 +38,7 @@ class AllCommand extends Command
             $view = view('pokemon-list', [
                 'title' => 'all pokémon:',
                 'pokemons' => $pokemons,
-                'styles' => [
+                'twOverrides' => [
                     'primaryColor' => $primaryColor,
                 ],
             ]);
