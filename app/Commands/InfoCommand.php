@@ -128,6 +128,8 @@ class InfoCommand extends Command
         } catch (RequestException $e) {
             if ($e->getCode() === 404) {
                 $this->error('Pokémon not found.');
+            } else {
+                $this->error($e->getMessage());
             }
 
             return self::FAILURE;
