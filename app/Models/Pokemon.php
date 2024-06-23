@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Helpers\NumberHelper;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -30,5 +32,19 @@ class Pokemon extends Model
     public function generation(): BelongsTo
     {
         return $this->belongsTo(Generation::class);
+    }
+
+    protected function weight(): Attribute
+    {
+        return Attribute::make(
+            get: fn (int $value) => NumberHelper::hectogramToKilogram($value),
+        );
+    }
+
+    protected function height(): Attribute
+    {
+        return Attribute::make(
+            get: fn (int $value) => NumberHelper::decimetreToMetre($value),
+        );
     }
 }

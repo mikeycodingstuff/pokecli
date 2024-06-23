@@ -8,11 +8,16 @@ class NumberHelper
 {
     public static function hectogramToKilogram(float $HgWeight): float
     {
-        return round($HgWeight * 0.1, 2);
+        return self::divideByTen($HgWeight);
     }
 
     public static function decimetreToMetre(float $DmHeight): float
     {
-        return round($DmHeight * 0.1, 2);
+        return self::divideByTen($DmHeight);
+    }
+
+    private static function divideByTen(float $value): float
+    {
+        return round($value * 0.1, 2);
     }
 }
