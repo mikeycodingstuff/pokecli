@@ -22,8 +22,6 @@ class AllCommand extends Command
         $baseUrl = config('api.urls.base_url');
 
         try {
-            $primaryColor = StyleHelper::setPrimaryColor();
-
             $response = Http::get("$baseUrl/pokedex/1");
             $data = $response->json();
             $pokemons = [];
@@ -38,9 +36,7 @@ class AllCommand extends Command
             $view = view('pokemon-list', [
                 'title' => 'all pokémon:',
                 'pokemons' => $pokemons,
-                'twOverrides' => [
-                    'primaryColor' => $primaryColor,
-                ],
+                'twOverrides' => StyleHelper::setBasicStyles(),
             ]);
 
             render(strval($view));

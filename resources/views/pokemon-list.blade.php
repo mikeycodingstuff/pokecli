@@ -8,11 +8,11 @@
     $numColumns = floor($terminalWidth / 20);
 @endphp
 
-<x-layout>
+<x-layout :textColor="$twOverrides['textColor']" :bgColor="$twOverrides['bgColor']">
     <div class="mx-2 my-1">
         <x-header
             :title="$title"
-            :twOverrides="$twOverrides"
+            :primaryColor="$twOverrides['primaryColor']"
         />
         <div class="mt-1">
             @foreach ($pokemons as $pokemon)

@@ -39,6 +39,15 @@ class StyleHelper
         return static::setColor('text_color');
     }
 
+    public static function setBasicStyles(): Collection
+    {
+        return collect([
+            'primaryColor' => static::setPrimaryColor(),
+            'bgColor' => static::setBgColor(),
+            'textColor' => static::setTextColor(),
+        ]);
+    }
+
     public static function setTypeColors(Collection $types): Collection
     {
         return $types->mapWithKeys(function ($type) {

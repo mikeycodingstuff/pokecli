@@ -36,7 +36,7 @@ class InfoCommand extends Command
         $random = $this->option('random');
         $useApi = $this->option('api');
 
-        $twOverrides = $this->setBasicStyles();
+        $twOverrides = StyleHelper::setBasicStyles();
 
         if (!$query && !$random) {
             $view = view('ask', [
@@ -169,14 +169,5 @@ class InfoCommand extends Command
         ]);
 
         render(strval($view));
-    }
-
-    protected function setBasicStyles(): Collection
-    {
-        return collect([
-            'primaryColor' => StyleHelper::setPrimaryColor(),
-            'bgColor' => StyleHelper::setBgColor(),
-            'textColor' => StyleHelper::setTextColor(),
-        ]);
     }
 }
