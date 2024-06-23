@@ -61,7 +61,7 @@ class InfoCommand extends Command
         return $this->getPokemonInfoFromDb($query, $random, $styles) === 0 ? self::SUCCESS : self::FAILURE;
     }
 
-    protected function getPokemonInfoFromDb(int|string $query, bool $random, array $styles): int
+    protected function getPokemonInfoFromDb(int|string|null $query, bool $random, array $styles): int
     {
         if ($random) {
             $pokemon = Pokemon::inRandomOrder()->first();
@@ -71,6 +71,12 @@ class InfoCommand extends Command
 
                 return self::INVALID;
             }
+
+            $styles['typeColors'] = StyleHelper::setTypeColors($pokemon->types);
+
+            $this->createAndRenderView($pokemon, $styles);
+
+            return self::SUCCESS;
         }
 
         if (is_numeric($query)) {
